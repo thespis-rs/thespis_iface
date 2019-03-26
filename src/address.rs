@@ -8,7 +8,7 @@ pub trait Address< A: Actor + Send >
 	fn send<M>( &mut self, msg: M )
 
 		where A: Handler< M >,
-		      M: Message<Result = ()> ,
+		      M: Message<Result = ()> + Send + 'static,
 
 	;
 
