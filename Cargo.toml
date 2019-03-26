@@ -1,0 +1,15 @@
+# Auto-generated from "Cargo.yml"
+[dependencies]
+[dependencies.futures-preview]
+default-features = false
+version = "0.3.0-alpha.13"
+
+[features]
+default = ["std"]
+std = ["futures-preview/std"]
+
+[package]
+authors = ["Naja Melan <najamelan@autistici.org>"]
+edition = "2018"
+name = "thespis"
+version = "0.1.0"

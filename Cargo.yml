@@ -1,0 +1,15 @@
+package:
+
+  name   : thespis
+  version: 0.1.0
+  authors: [ Naja Melan <najamelan@autistici.org> ]
+  edition: '2018'
+
+features:
+
+  default: [ std ]
+  std    : [ futures-preview/std ]
+
+dependencies:
+
+  futures-preview: { version: 0.3.0-alpha.13, default-features: false }
