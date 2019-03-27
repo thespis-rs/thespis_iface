@@ -20,10 +20,15 @@ pub use
 };
 
 
-use std::pin::Pin;
-use std::future::Future;
+#[ cfg( feature = "derive" ) ]
+//
+pub use thespis_derive::{ Actor };
 
+
+use std::{ pin::Pin, future::Future };
+//
 pub type Response<'a, M> = Pin<Box< dyn Future< Output = <M as Message>::Result > + Send + 'a> >;
+
 
 mod import
 {
