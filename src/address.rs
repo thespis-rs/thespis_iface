@@ -5,7 +5,7 @@ pub trait Address< A: Actor + Send >
 {
 	fn new( mb: mpsc::UnboundedSender<Box< dyn Envelope<A> >> ) -> Self;
 
-	fn send<M>( &mut self, msg: M )
+	fn send<M>( &mut self, msg: M ) -> Pin<Box< Future<Output=()>>>
 
 		where A: Handler< M >,
 		      M: Message<Result = ()> + Send + 'static,
