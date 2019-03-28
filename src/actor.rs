@@ -1,13 +1,13 @@
-use crate :: { * };
+use crate :: { *, import::* };
 
 pub trait Actor
 
 	where Self: Sized + Send
 
 {
-	fn start<Mb>( self ) -> Mb where Mb: Mailbox< Self >
+	fn start<Mb>( self, exec: &mut impl Spawn ) -> Mb where Mb: Mailbox< Self >
 	{
-		Mb::new( self )
+		Mb::new( self, exec )
 	}
 }
 

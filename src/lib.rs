@@ -8,6 +8,7 @@ mod envelope  ;
 mod handler   ;
 mod mailbox   ;
 mod message   ;
+mod runtime   ;
 
 pub use
 {
@@ -17,6 +18,7 @@ pub use
 	handler   :: * ,
 	mailbox   :: * ,
 	message   :: * ,
+	runtime   :: * ,
 };
 
 
@@ -35,7 +37,7 @@ mod import
 	pub use
 	{
 		std     :: { sync::Arc, pin::Pin, future::Future } ,
-		futures :: { prelude::{ Stream, Sink }, channel::{ oneshot, mpsc } } ,
+		futures :: { prelude::{ Stream, Sink }, channel::{ oneshot, mpsc }, task::Spawn } ,
 	};
 }
 
