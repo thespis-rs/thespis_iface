@@ -2,7 +2,7 @@ use crate :: { *, import::* };
 
 pub trait Actor
 
-	where Self: Sized + Send
+	where Self: Sized
 
 {
 	// Currently doesn't work because it drops the future returned from mb.start.
