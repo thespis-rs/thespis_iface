@@ -1,10 +1,25 @@
 use crate :: { import::*, * };
 
 
-pub trait Address< A: Actor + Send >
+pub trait Address< A: Actor >
 {
-	fn new( mb: mpsc::UnboundedSender<Box< dyn Envelope<A> >> ) -> Self;
+	fn send<M>( &mut self, msg: M ) -> Pin<Box< Future<Output=()> + '_>>
 
+		where A: Handler< M >,
+		      M: Message<Result = ()> + 'static,
+
+	;
+
+	fn call<M: Message + 'static>( &mut self, msg: M ) -> Pin<Box< dyn Future< Output = M::Result > + '_ > >
+
+		where A: Handler< M >,
+
+	;
+}
+
+
+pub trait ThreadSafeAddress< A: Actor > : Address<A>
+{
 	fn send<M>( &mut self, msg: M ) -> Pin<Box< Future<Output=()> + '_>>
 
 		where A: Handler< M >,

@@ -27,7 +27,8 @@ pub use thespis_derive::{ Actor };
 
 use std::{ pin::Pin, future::Future };
 //
-pub type Response<'a, M> = Pin<Box< dyn Future< Output = <M as Message>::Result > + Send + 'a> >;
+pub type           Response<'a, M> = Pin<Box< dyn Future< Output = <M as Message>::Result > + 'a        >>;
+pub type ThreadSafeResponse<'a, M> = Pin<Box< dyn Future< Output = <M as Message>::Result > + 'a + Send >>;
 
 
 mod import

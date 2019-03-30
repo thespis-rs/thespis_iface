@@ -1,15 +1,7 @@
 use crate :: { import::*, * };
 
 
-pub trait Mailbox< A: Actor + Send >
+pub trait Mailbox< A: Actor >
 {
-	fn new( actor: A, exec: &mut impl Spawn ) -> Self;
-
-
-	fn addr< Adr >( &mut self ) -> Adr
-
-		where Adr: Address<A>
-
-	;
-
+	fn start( &mut self, actor: A ) -> Pin<Box< Future<Output=()> + '_>>;
 }

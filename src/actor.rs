@@ -5,9 +5,16 @@ pub trait Actor
 	where Self: Sized + Send
 
 {
-	fn start<Mb>( self, exec: &mut impl Spawn ) -> Mb where Mb: Mailbox< Self >
+	// Currently doesn't work because it drops the future returned from mb.start.
+	//
+	fn start( self, mb: &mut impl Mailbox<Self> )
 	{
-		Mb::new( self, exec )
+		mb.start( self );
 	}
+
+
+	fn started (){}
+	fn stopping(){}
+	fn stopped (){}
 }
 
