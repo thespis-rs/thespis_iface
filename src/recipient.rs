@@ -5,7 +5,7 @@ pub trait Recipient< M: Message + 'static >
 {
 	fn send( &mut self, msg: M ) -> TupleResponse
 
-		where M: Message<Result = ()> + 'static,
+		where M: Message<Result = ()>,
 
 	;
 
@@ -15,13 +15,13 @@ pub trait Recipient< M: Message + 'static >
 
 pub trait ThreadSafeRecipient<M>
 
-	where  M                    : ThreadSafeMessage + 'static,
-	      <M as Message>::Result: Send                       ,
+	where  M                    : Message + Send + 'static,
+	      <M as Message>::Result: Send                    ,
 
 {
 	fn send( &mut self, msg: M ) -> ThreadSafeTupleResponse
 
-		where M: ThreadSafeMessage<Result = ()>,
+		where M: Message<Result = ()>
 
 	;
 
