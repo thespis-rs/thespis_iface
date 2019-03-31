@@ -1,7 +1,7 @@
 use crate :: { import::*, * };
 
 
-pub trait Address< A: Actor >
+pub trait Address< A: Actor > : Clone
 {
 	fn send<M>( &mut self, msg: M ) -> TupleResponse
 
@@ -15,10 +15,13 @@ pub trait Address< A: Actor >
 		where A: Handler< M >,
 
 	;
+
+
+	fn recipient<M>( &self ) -> Box< dyn Recipient<M> > where M: Message + 'static, A: Handler<M> + 'static;
 }
 
 
-pub trait ThreadSafeAddress< A: Actor >
+pub trait ThreadSafeAddress< A: Actor > : Clone
 {
 	fn send<M>( &mut self, msg: M ) -> ThreadSafeTupleResponse
 
@@ -34,6 +37,13 @@ pub trait ThreadSafeAddress< A: Actor >
 		      M        : ThreadSafeMessage ,
 		      <M as Message>::Result: Send,
 
+	;
+
+	fn recipient<M>( &self ) -> Box< dyn ThreadSafeRecipient<M> >
+
+		where M: ThreadSafeMessage + 'static,
+		      A: Handler<M> + 'static,
+		      <M as Message>::Result: Send,
 	;
 }
 
