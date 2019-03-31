@@ -7,7 +7,7 @@ pub trait Envelope< A > where A: Actor
 }
 
 
-pub trait ThreadSafeEnvelope< A > : Send where A: Actor + Send
+pub trait ThreadSafeEnvelope< A > : Send where A: Actor
 {
-	fn handle( self: Box<Self>, actor: &mut A ) -> ThreadSafeTupleResponse;
+	fn handle( self: Box<Self>, actor: &mut A ) -> TupleResponse;
 }

@@ -3,5 +3,5 @@ use crate :: { import::*, * };
 
 pub trait Mailbox< A: Actor >
 {
-	fn start( &mut self, actor: A ) -> TupleResponse;
+	fn start( self, actor: A ) -> Pin<Box< dyn Future<Output = ()> >>;
 }

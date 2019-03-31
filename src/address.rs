@@ -18,20 +18,21 @@ pub trait Address< A: Actor >
 }
 
 
-pub trait ThreadSafeAddress< A: Actor > : Address<A>
+pub trait ThreadSafeAddress< A: Actor >
 {
 	fn send<M>( &mut self, msg: M ) -> ThreadSafeTupleResponse
 
 		where A: Handler< M >,
-		      M: Message<Result = ()> + Send + 'static,
+		      M: ThreadSafeMessage<Result = ()> + 'static,
+		      <M as Message>::Result: Send,
 
 	;
 
 	fn call<M: Message + 'static>( &mut self, msg: M ) -> ThreadSafeResponse<M>
 
-		where A: Handler< M >,
-		      M: Send        ,
-		      M::Result: Send,
+		where A        : Handler< M >   ,
+		      M        : ThreadSafeMessage ,
+		      <M as Message>::Result: Send,
 
 	;
 }
