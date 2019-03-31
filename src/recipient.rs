@@ -13,20 +13,18 @@ pub trait Recipient< M: Message + 'static >
 }
 
 
-pub trait ThreadSafeRecipient< M: ThreadSafeMessage + 'static >
+pub trait ThreadSafeRecipient<M>
+
+	where  M                    : ThreadSafeMessage + 'static,
+	      <M as Message>::Result: Send                       ,
+
 {
 	fn send( &mut self, msg: M ) -> ThreadSafeTupleResponse
 
-		where M: ThreadSafeMessage<Result = ()> + 'static,
-		      <M as Message>::Result: Send,
+		where M: ThreadSafeMessage<Result = ()>,
 
 	;
 
-	fn call( &mut self, msg: M ) -> ThreadSafeResponse<M>
-
-		where M        : ThreadSafeMessage ,
-		      <M as Message>::Result: Send,
-
-	;
+	fn call( &mut self, msg: M ) -> ThreadSafeResponse<M>;
 }
 

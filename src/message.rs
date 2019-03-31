@@ -6,10 +6,8 @@ pub trait Message
 }
 
 
-
-pub trait ThreadSafeMessage : Message + Send
+pub trait ThreadSafeMessage : Message + Send  where <Self as Message>::Result: Send
 {
-	type Result: Send;
 }
 
 
@@ -20,5 +18,4 @@ impl<M> ThreadSafeMessage for M
 	      M::Result: Send          ,
 
 {
-	type Result = M::Result;
 }
