@@ -2,7 +2,7 @@ use crate :: { import::*, * };
 
 pub trait Handler< M: Message > where Self: Actor
 {
-	fn handle( &mut self, msg: M ) -> Response<M>;
+	fn handle( &mut self, msg: M ) -> Response< <M as Message>::Result >;
 }
 
 pub trait ThreadSafeHandler<M>
@@ -14,5 +14,5 @@ pub trait ThreadSafeHandler<M>
 		M::Result: Send           ,
 
 {
-	fn handle( &mut self, msg: M ) -> ThreadSafeResponse<M>;
+	fn handle( &mut self, msg: M ) -> ThreadSafeResponse< <M as Message>::Result >;
 }

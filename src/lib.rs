@@ -29,10 +29,10 @@ pub use thespis_derive::{ Actor };
 
 use std::{ pin::Pin, future::Future };
 //
-pub type           TupleResponse<'a   > = Pin<Box< dyn Future< Output = ()                     > + 'a        >>;
-pub type ThreadSafeTupleResponse<'a   > = Pin<Box< dyn Future< Output = ()                     > + 'a + Send >>;
-pub type                Response<'a, M> = Pin<Box< dyn Future< Output = <M as Message>::Result > + 'a        >>;
-pub type      ThreadSafeResponse<'a, M> = Pin<Box< dyn Future< Output = <M as Message>::Result > + 'a + Send >>;
+pub type           TupleResponse<'a   > = Pin<Box< dyn Future< Output = () > + 'a        >>;
+pub type ThreadSafeTupleResponse<'a   > = Pin<Box< dyn Future< Output = () > + 'a + Send >>;
+pub type                Response<'a, R> = Pin<Box< dyn Future< Output = R  > + 'a        >>;
+pub type      ThreadSafeResponse<'a, R> = Pin<Box< dyn Future< Output = R  > + 'a + Send >>;
 
 
 mod import

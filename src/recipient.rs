@@ -9,7 +9,7 @@ pub trait Recipient< M: Message >
 
 	;
 
-	fn call( &mut self, msg: M ) -> Response<M>;
+	fn call( &mut self, msg: M ) -> Response< <M as Message>::Result >;
 }
 
 
@@ -25,6 +25,6 @@ pub trait ThreadSafeRecipient<M>
 
 	;
 
-	fn call( &mut self, msg: M ) -> ThreadSafeResponse<M>;
+	fn call( &mut self, msg: M ) -> ThreadSafeResponse< <M as Message>::Result >;
 }
 
