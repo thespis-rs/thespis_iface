@@ -1,5 +1,5 @@
-pub trait Message
+pub trait Message: 'static
 {
-	type Result;
+	type Result: 'static;
 }
 

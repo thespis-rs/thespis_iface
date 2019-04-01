@@ -1,7 +1,7 @@
 use crate :: { import::*, * };
 
 
-pub trait Recipient< M: Message + 'static >
+pub trait Recipient< M: Message >
 {
 	fn send( &mut self, msg: M ) -> TupleResponse
 
@@ -15,8 +15,8 @@ pub trait Recipient< M: Message + 'static >
 
 pub trait ThreadSafeRecipient<M>
 
-	where  M                    : Message + Send + 'static,
-	      <M as Message>::Result: Send                    ,
+	where  M                    : Message + Send,
+	      <M as Message>::Result: Send          ,
 
 {
 	fn send( &mut self, msg: M ) -> ThreadSafeTupleResponse
