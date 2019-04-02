@@ -7,11 +7,12 @@ package:
 
 features:
 
-  default: [ std ]
+  default: [ std, derive ]
   std    : [ futures-preview/std ]
   derive : [ thespis_derive      ]
 
 dependencies:
 
   futures-preview: { path: ../../futures-rs/futures, features: [ nightly ], default-features: false }
-  thespis_derive : { path: ../thespis_derive, optional        : true  }
+  thespis_derive : { path: ../thespis_derive, optional: true  }
+  failure        : ^0.1

@@ -5,20 +5,24 @@
 mod actor     ;
 mod address   ;
 mod envelope  ;
+mod executor  ;
 mod handler   ;
 mod mailbox   ;
 mod message   ;
-mod recipient   ;
+mod recipient ;
+mod thespis   ;
 
 pub use
 {
 	actor     :: * ,
 	address   :: * ,
 	envelope  :: * ,
+	executor  :: * ,
 	handler   :: * ,
 	mailbox   :: * ,
 	message   :: * ,
 	recipient :: * ,
+	thespis   :: * ,
 };
 
 
@@ -33,6 +37,8 @@ pub type           TupleResponse<'a   > = Pin<Box< dyn Future< Output = () > + '
 pub type ThreadSafeTupleResponse<'a   > = Pin<Box< dyn Future< Output = () > + 'a + Send >>;
 pub type                Response<'a, R> = Pin<Box< dyn Future< Output = R  > + 'a        >>;
 pub type      ThreadSafeResponse<'a, R> = Pin<Box< dyn Future< Output = R  > + 'a + Send >>;
+
+pub type ThesRes<T> = Result<T, failure::Error>;
 
 
 mod import
