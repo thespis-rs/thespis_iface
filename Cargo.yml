@@ -7,12 +7,20 @@ package:
 
 features:
 
-  default: [ std, derive ]
+  default: [ std, derive, remote ]
   std    : [ futures-preview/std ]
   derive : [ thespis_derive      ]
+  remote : [ serde, bytes, num-traits, num-derive ]
 
 dependencies:
 
   futures-preview: { path: ../../futures-rs/futures, features: [ nightly ], default-features: false }
   thespis_derive : { path: ../thespis_derive, optional: true  }
   failure        : ^0.1
+  serde          : { version: ^1  , optional: true, default-features: false }
+  bytes          : { version: ^0.4, optional: true                          }
+
+  # do we still want these?
+  #
+  num-traits     : { version: ^0.2,                          optional: true }
+  num-derive     : { version: ^0.2,                          optional: true }

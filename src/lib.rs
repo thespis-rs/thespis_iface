@@ -26,9 +26,9 @@ pub use
 };
 
 
-#[ cfg( feature = "derive" ) ]
-//
-pub use thespis_derive::{ Actor };
+#[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor };
+#[ cfg( feature = "remote" ) ] mod remote;
+#[ cfg( feature = "remote" ) ] pub use remote::*;
 
 
 use std::{ pin::Pin, future::Future };
@@ -45,9 +45,19 @@ mod import
 {
 	pub use
 	{
-		std     :: { sync::Arc, pin::Pin, future::Future } ,
+		std     :: { sync::Arc, pin::Pin, future::Future, convert::TryFrom, hash::Hash, fmt::{ Debug, Display } } ,
 		futures :: { prelude::{ Stream, Sink }, channel::{ oneshot, mpsc }, task::Spawn } ,
+		failure :: { Error } ,
 	};
+
+	#[ cfg( feature = "remote" ) ]
+	//
+	pub use
+	{
+		bytes :: { Bytes, BytesMut } ,
+	};
+
+
 }
 
 
