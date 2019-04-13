@@ -20,6 +20,7 @@ pub trait Executor
 	fn spawn_pool( &self, fut: Pin<Box< dyn Future< Output = () > + 'static >> ) -> ThesRes<()>;
 
 	/// Spawn a future without creating new threads, and without paying for thread synchronization
+	/// TODO: Why does this return a result?
 	///
 	fn spawn( &self, fut: Pin<Box< dyn Future< Output = () > + 'static >> ) -> ThesRes<()>;
 

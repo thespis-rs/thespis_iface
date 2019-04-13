@@ -46,7 +46,7 @@ mod import
 	pub use
 	{
 		std     :: { sync::Arc, pin::Pin, future::Future, convert::TryFrom, hash::Hash, fmt::{ Debug, Display } } ,
-		futures :: { prelude::{ Stream, Sink }, channel::{ oneshot, mpsc }, task::Spawn } ,
+		futures :: { prelude::{ FutureExt, Stream, Sink }, channel::{ oneshot, mpsc }, task::Spawn } ,
 		failure :: { Error } ,
 	};
 

@@ -5,14 +5,14 @@ use crate :: { import::*, * };
 ///
 pub trait Address< A: Actor > : Clone
 {
-	fn send<M>( &mut self, msg: M ) -> TupleResponse
+	fn send<M>( &mut self, msg: M ) -> Response< ThesRes<()> >
 
 		where A: Handler< M >           ,
 		      M: Message< Result = () > ,
 	;
 
 
-	fn call<M: Message>( &mut self, msg: M ) -> Response< <M as Message>::Result >
+	fn call<M: Message>( &mut self, msg: M ) -> Response< ThesRes<<M as Message>::Result> >
 
 		where A: Handler< M >,
 	;
@@ -31,7 +31,7 @@ pub trait Address< A: Actor > : Clone
 ///
 pub trait ThreadSafeAddress< A: Actor > : Clone
 {
-	fn send<M>( &mut self, msg: M ) -> ThreadSafeTupleResponse
+	fn send<M>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<()> >
 
 	where  A                    : Handler<M>                    ,
 	       M                    : Message< Result = () > + Send ,
@@ -39,7 +39,7 @@ pub trait ThreadSafeAddress< A: Actor > : Clone
 
 	;
 
-	fn call<M: Message>( &mut self, msg: M ) -> ThreadSafeResponse< <M as Message>::Result >
+	fn call<M: Message>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<<M as Message>::Result> >
 
 	where  A                    : Handler<M>     ,
 	       M                    : Message + Send ,
@@ -66,7 +66,7 @@ use serde::{ Serialize, de::DeserializeOwned };
 //
 pub trait RemoteAddress< A: Actor > : Clone
 {
-	fn send<M>( &mut self, msg: M ) -> TupleResponse
+	fn send<M>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<()> >
 
 	where  A                    : Handler<M>                                            ,
 	       M                    : Message< Result = () > + Serialize + DeserializeOwned ,
@@ -74,7 +74,7 @@ pub trait RemoteAddress< A: Actor > : Clone
 
 	;
 
-	fn call<M: Message>( &mut self, msg: M ) -> ThreadSafeResponse< <M as Message>::Result >
+	fn call<M: Message>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<<M as Message>::Result> >
 
 	where  A                    : Handler<M>                             ,
 	       M                    : Message + Serialize + DeserializeOwned ,

@@ -3,13 +3,13 @@ use crate :: { import::*, * };
 
 pub trait Recipient< M: Message >
 {
-	fn send( &mut self, msg: M ) -> TupleResponse
+	fn send( &mut self, msg: M ) -> Response< ThesRes<()> >
 
 		where M: Message<Result = ()>,
 
 	;
 
-	fn call( &mut self, msg: M ) -> Response< <M as Message>::Result >;
+	fn call( &mut self, msg: M ) -> Response< ThesRes<<M as Message>::Result> >;
 }
 
 
@@ -19,13 +19,13 @@ pub trait ThreadSafeRecipient<M>
 	      <M as Message>::Result: Send          ,
 
 {
-	fn send( &mut self, msg: M ) -> ThreadSafeTupleResponse
+	fn send( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<()> >
 
 		where M: Message<Result = ()>
 
 	;
 
-	fn call( &mut self, msg: M ) -> ThreadSafeResponse< <M as Message>::Result >;
+	fn call( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<<M as Message>::Result> >;
 }
 
 
@@ -50,6 +50,6 @@ pub trait RemoteRecipient<M>
 
 	;
 
-	fn call( &mut self, msg: M ) -> ThreadSafeResponse< <M as Message>::Result >;
+	fn call( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<<M as Message>::Result> >;
 }
 
