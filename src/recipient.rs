@@ -44,12 +44,12 @@ pub trait RemoteRecipient<M>
 	      <M as Message>::Result: Serialize + DeserializeOwned          ,
 
 {
-	fn send( &mut self, msg: M ) -> ThreadSafeTupleResponse
+	fn send( &mut self, msg: M ) -> Response< ThesRes<()> >
 
 		where M: Message<Result = ()>
 
 	;
 
-	fn call( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<<M as Message>::Result> >;
+	fn call( &mut self, msg: M ) -> Response< ThesRes<<M as Message>::Result> >;
 }
 

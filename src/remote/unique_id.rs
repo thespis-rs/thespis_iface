@@ -20,4 +20,15 @@ pub trait UniqueID :
 	/// An identical input here should always give an identical UniqueID.
 	//
 	fn from_seed( data: &[u8] ) -> Self;
+
+
+	/// And empty UniqueID. Can be used to signify the abscence of an id, would usually be all
+	/// zero bytes.
+	//
+	fn null() -> Self;
+
+
+	/// Predicate for null values.
+	//
+	fn is_null( &self ) -> bool;
 }
