@@ -5,20 +5,14 @@ pub trait ServiceMap<MulService>
 {
 	fn deserialize( &self );
 
-	fn send_service
-	(
-		&self                               ,
-		 msg     : MulService               ,
-		 receiver: Box< dyn Recipient<Any> >,
-
-	) -> Response<()>;
+	fn send_service( &self, msg: MulService, receiver: &Box<dyn Any> );
 
 	fn call_service
 	(
-		&self                                           ,
-		 msg        : MulService                        ,
-		 receiver   : &Box< dyn Any >         ,
-		 return_addr: Box< dyn Recipient< MulService >> ,
+		&self                                            ,
+		 msg        :  MulService                        ,
+		 receiver   : &Box< dyn Any >                    ,
+		 return_addr:  Box< dyn Recipient< MulService >> ,
 
 	);
 }
