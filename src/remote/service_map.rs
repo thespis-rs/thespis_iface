@@ -17,8 +17,8 @@ pub trait ServiceMap<MulService>
 	(
 		&self                                           ,
 		 msg        : MulService                        ,
-		 receiver   : Box< dyn Any >         ,
+		 receiver   : &Box< dyn Any >         ,
 		 return_addr: Box< dyn Recipient< MulService >> ,
 
-	) -> Response<()>;
+	);
 }
