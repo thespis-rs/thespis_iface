@@ -47,13 +47,13 @@ mod import
 	{
 		std     ::
 		{
-			sync::Arc,
-			pin::Pin,
-			future::Future,
-			convert::TryFrom,
-			hash::Hash,
-			fmt::{ Debug, Display },
-			any::Any,
+			sync    :: Arc                ,
+			pin     :: Pin                ,
+			future  :: Future             ,
+			convert :: TryFrom            ,
+			hash    :: Hash               ,
+			fmt     :: { Debug, Display } ,
+			any     :: Any                ,
 		},
 
 		futures :: { prelude::{ FutureExt, Stream, Sink }, channel::{ oneshot, mpsc }, task::Spawn } ,
@@ -65,6 +65,7 @@ mod import
 	pub use
 	{
 		bytes :: { Bytes, BytesMut } ,
+		serde :: { Serialize, de::DeserializeOwned } ,
 	};
 
 

@@ -1,7 +1,10 @@
 use crate::{ import::*, * } ;
 
 
-pub trait Service: Message
+pub trait Service
+
+	where  Self                    : Message + Serialize + DeserializeOwned,
+         <Self as Message>::Result:           Serialize + DeserializeOwned,
 {
 	type UniqueID: UniqueID;
 
