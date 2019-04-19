@@ -55,38 +55,3 @@ pub trait ThreadSafeAddress< A: Actor > : Clone
 	;
 }
 
-
-/// An Address that allows you to send messages to actors in a different process/host.
-///
-#[ cfg( feature = "remote" ) ]
-//
-use serde::{ Serialize, de::DeserializeOwned };
-
-#[ cfg( feature = "remote" ) ]
-//
-pub trait RemoteAddress< A: Actor > : Clone
-{
-	fn send<M>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<()> >
-
-	where  A                    : Handler<M>                                            ,
-	       M                    : Message< Result = () > + Serialize + DeserializeOwned ,
-	      <M as Message>::Result: Serialize + DeserializeOwned                          ,
-
-	;
-
-	fn call<M: Message>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<<M as Message>::Result> >
-
-	where  A                    : Handler<M>                             ,
-	       M                    : Message + Serialize + DeserializeOwned ,
-	      <M as Message>::Result: Serialize + DeserializeOwned           ,
-
-	;
-
-	fn recipient<M>( &self ) -> Box< dyn ThreadSafeRecipient<M> >
-
-		where  A                    : Handler<M>                             ,
-		       M                    : Message + Serialize + DeserializeOwned ,
-		      <M as Message>::Result: Serialize + DeserializeOwned           ,
-	;
-}
-
