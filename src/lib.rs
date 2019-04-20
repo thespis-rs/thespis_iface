@@ -10,7 +10,6 @@ mod handler   ;
 mod mailbox   ;
 mod message   ;
 mod recipient ;
-mod thespis   ;
 
 pub use
 {
@@ -22,7 +21,6 @@ pub use
 	mailbox   :: * ,
 	message   :: * ,
 	recipient :: * ,
-	thespis   :: * ,
 };
 
 
