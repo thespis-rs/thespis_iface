@@ -2,62 +2,16 @@
 The interface of thespis (contains only traits)
 
 
-## Remote Actors Design
+## TODO:
 
-The user has to define their services as such:
+- Get rid of the threadsafe variants of address
+- oblige all implementors of all traits to implement Debug?
+- go over actix features and see what would be useful to have (backpressure?)
+- remote Addr? if the actor is known?
+- compile time service uids and if not, at least don't re-hash them on every access
+- ergonomics. Get an address to a started actor without having to manually make and start a mailbox (implementation?)
+- defaults for associated types, like () for Message::Result, and possibility to derive with defaults
+- how can an actor stop itself, should mb be fed to handle, should there be a method self.mb, should there be a stop method on mailbox
+- do some proper research on tokio reactor. Just figured out we don't need a tokio runtime to use stuff that uses epoll. A futures 0.3 executor will do just fine, just using compat on the futures and streams from tokio.
 
-```rust
-use thespis::ServiceMap;
 
-#[ derive( ServiceMap, FromPrimitive, ToPrimitive ) ]
-//
-enum MyServices
-{
-	RegisterPeer   ,
-	WeatherForecast,
-	...,
-}
-```
-
-The FromPrimitive, ToPrimitive derives allow serializing the service to an unsigned varint (from multiformats). Actually these traits just do `Enum::Variant as i64`, so maybe it's not worth having a dependency for this.
-
-The derive ServiceMap is provided by thespis. It will add deserialization like:
-
-```rust
-deserialize<T>( service: MyServices, msg: BytesMut ) -> Result<T, failure::Error>
-{
-	match service
-	{
-		MyServices::RegisterPeer => serde::deserialize::<RegisterPeer>( msg )?,
-		...
-	}
-
-};
-```
-
-This means that the type RegisterPeer must be in scope. And it must correctly deserialize, otherwise an error is returned.
-
-We need this minimal boilerplate because we need to register the deserialization types at compile time. Otherwise we can't provide deserialization into the concrete message types that actors take.
-
-The alternative I see is to have every actor accept messgages of the type MultiService and do the deserialization themselves. It would seem to me that this is a far inferior solution, since an actor is no longer handler for a specific type, but for MultiService and deserialization code needs to be added to each handler.
-
-An extension to actor will be made that adds a method to self. This allows to register this actor for handling service x by  calling `self.register_service( MyServices::RegisterPeer );` in the `started()` method of the actor.
-
-A router will take an AsyncRead + AsyncWrite and a `Box< dyn ServiceMap >`. Like this it has all information to handle the connection and dispatch messages to the right actors.
-
-```rust
-
-struct RegisterService
-{
-
-}
-
-impl Handler<RegisterService> for Router
-{
-	fn handle( &mut self, msg: RegisterService ) -> TupleResponse
-	{
-
-	}
-}
-
-```
