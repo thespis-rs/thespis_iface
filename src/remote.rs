@@ -1,14 +1,16 @@
-mod service;
-mod unique_id;
-mod codec_alg;
-mod multi_service;
-mod service_map;
+mod codec_alg     ;
+mod multi_service ;
+mod namespace     ;
+mod service       ;
+mod service_map   ;
+mod unique_id     ;
 
 pub use
 {
-	service       ::* ,
-	unique_id     ::* ,
 	codec_alg     ::* ,
 	multi_service ::* ,
+	namespace     ::* ,
+	service       ::* ,
 	service_map   ::* ,
+	unique_id     ::* ,
 };

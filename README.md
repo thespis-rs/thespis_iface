@@ -8,7 +8,6 @@ The interface of thespis (contains only traits)
 - oblige all implementors of all traits to implement Debug?
 - go over actix features and see what would be useful to have (backpressure?)
 - remote Addr? if the actor is known?
-- compile time service uids and if not, at least don't re-hash them on every access
 - defaults for associated types, like () for Message::Result, and possibility to derive with defaults
 - how can an actor stop itself, should mb be fed to handle, should there be a method self.mb, should there be a stop method on mailbox
 - do some proper research on tokio reactor. Just figured out we don't need a tokio runtime to use stuff that uses epoll. A futures 0.3 executor will do just fine, just using compat on the futures and streams from tokio.
@@ -27,5 +26,10 @@ The interface of thespis (contains only traits)
 
 - impl recipient for Addr and rename Rcpnt to Receiver?
 - client code for remote actors is not generic, it will only work on MultiServiceImpl
+- let ServiceMap have a debug implementation which will print out all services with their unique id, so it can be put
+  in the documentation of programs and libraries. Peer should probably also be able to tell the remote which services
+  it provides.
+- clean up benches and write benchmarks for remote actors
+- stream handler
 
 
