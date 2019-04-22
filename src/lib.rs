@@ -31,10 +31,8 @@ pub use
 
 use std::{ pin::Pin, future::Future };
 //
-pub type           TupleResponse<'a   > = Pin<Box< dyn Future< Output = () > + 'a        >>;
-pub type ThreadSafeTupleResponse<'a   > = Pin<Box< dyn Future< Output = () > + 'a + Send >>;
-pub type                Response<'a, R> = Pin<Box< dyn Future< Output = R  > + 'a        >>;
-pub type      ThreadSafeResponse<'a, R> = Pin<Box< dyn Future< Output = R  > + 'a + Send >>;
+pub type           Response<'a, R> = Pin<Box< dyn Future<Output = R> + 'a        >>;
+pub type ThreadSafeResponse<'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
 
 pub type ThesRes<T> = Result<T, failure::Error>;
 
