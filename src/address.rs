@@ -5,6 +5,8 @@ use crate :: { import::*, * };
 ///
 pub trait Address< A: Actor > : Clone
 {
+	#[ must_use = "Futures do nothing unless polled" ]
+	//
 	fn send<M>( &mut self, msg: M ) -> Response< ThesRes<()> >
 
 		where A: Handler< M >           ,
@@ -12,6 +14,8 @@ pub trait Address< A: Actor > : Clone
 	;
 
 
+	#[ must_use = "Futures do nothing unless polled" ]
+	//
 	fn call<M: Message>( &mut self, msg: M ) -> Response< ThesRes<<M as Message>::Result> >
 
 		where A: Handler< M >,
@@ -31,6 +35,8 @@ pub trait Address< A: Actor > : Clone
 ///
 pub trait ThreadSafeAddress< A: Actor > : Clone
 {
+	#[ must_use = "Futures do nothing unless polled" ]
+	//
 	fn send<M>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<()> >
 
 	where  A                    : Handler<M>                    ,
@@ -39,6 +45,9 @@ pub trait ThreadSafeAddress< A: Actor > : Clone
 
 	;
 
+
+	#[ must_use = "Futures do nothing unless polled" ]
+	//
 	fn call<M: Message>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<<M as Message>::Result> >
 
 	where  A                    : Handler<M>     ,

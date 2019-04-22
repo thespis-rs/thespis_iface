@@ -12,5 +12,7 @@ pub trait Mailbox< A: Actor >
 
 	/// Return a future that allows starting the mailbox.
 	///
+	#[ must_use = "Futures do nothing unless polled" ]
+	//
 	fn start_fut( self, actor: A ) -> Pin<Box< dyn Future<Output = ()> >>;
 }
