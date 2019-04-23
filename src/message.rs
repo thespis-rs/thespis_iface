@@ -1,5 +1,5 @@
 pub trait Message: 'static
 {
-	type Result: 'static;
+	type Return: 'static;
 }
 

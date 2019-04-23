@@ -12,7 +12,7 @@ pub trait Service<Namespace>
 	//       to create a bound to Deserialize<'de> and when to use DeserializeOwned.
 	//
 	where  Self                    : Message + Serialize + DeserializeOwned,
-         <Self as Message>::Result:           Serialize + DeserializeOwned,
+         <Self as Message>::Return:           Serialize + DeserializeOwned,
 {
 	type UniqueID: UniqueID;
 
