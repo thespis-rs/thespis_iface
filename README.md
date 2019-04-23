@@ -31,5 +31,7 @@ The interface of thespis (contains only traits)
   it provides.
 - clean up benches and write benchmarks for remote actors
 - stream handler
+- on generic impls, tag methods as default, so that users can override them for specific types.
+- rename Message::Result in Message::Return
 
 

@@ -9,8 +9,8 @@ pub trait Address< A: Actor > : Clone
 	//
 	fn send<M>( &mut self, msg: M ) -> Response< ThesRes<()> >
 
-		where A: Handler< M >           ,
-		      M: Message< Result = () > ,
+		where A: Handler< M >,
+		      M: Message     ,
 	;
 
 
@@ -18,7 +18,7 @@ pub trait Address< A: Actor > : Clone
 	//
 	fn call<M: Message>( &mut self, msg: M ) -> Response< ThesRes<<M as Message>::Result> >
 
-		where A: Handler< M >,
+		where A: Handler< M >
 	;
 
 
@@ -39,9 +39,9 @@ pub trait ThreadSafeAddress< A: Actor > : Clone
 	//
 	fn send<M>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<()> >
 
-	where  A                    : Handler<M>                    ,
-	       M                    : Message< Result = () > + Send ,
-	      <M as Message>::Result: Send                          ,
+	where  A                    : Handler<M>        ,
+	       M                    : Message    + Send ,
+	      <M as Message>::Result:              Send ,
 
 	;
 
@@ -52,15 +52,15 @@ pub trait ThreadSafeAddress< A: Actor > : Clone
 
 	where  A                    : Handler<M>     ,
 	       M                    : Message + Send ,
-	      <M as Message>::Result: Send           ,
+	      <M as Message>::Result:           Send ,
 
 	;
 
-	fn recipient<M>( &self ) -> Box< dyn ThreadSafeRecipient<M> >
+	fn recipient<M>( &self ) -> Box< dyn Recipient<M> >
 
 		where  A                    : Handler<M>     ,
 		       M                    : Message + Send ,
-		      <M as Message>::Result: Send           ,
+		      <M as Message>::Result:           Send ,
 	;
 }
 
