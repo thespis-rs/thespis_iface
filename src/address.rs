@@ -7,7 +7,7 @@ pub trait Address< A: Actor > : Clone
 {
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn send<M>( &mut self, msg: M ) -> Response< ThesRes<()> >
+	fn send<M>( &mut self, msg: M ) -> Return< ThesRes<()> >
 
 		where A: Handler< M >,
 		      M: Message     ,
@@ -16,7 +16,7 @@ pub trait Address< A: Actor > : Clone
 
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn call<M: Message>( &mut self, msg: M ) -> Response< ThesRes<<M as Message>::Result> >
+	fn call<M: Message>( &mut self, msg: M ) -> Return< ThesRes<<M as Message>::Result> >
 
 		where A: Handler< M >
 	;
@@ -37,7 +37,7 @@ pub trait ThreadSafeAddress< A: Actor > : Clone
 {
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn send<M>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<()> >
+	fn send<M>( &mut self, msg: M ) -> ThreadSafeReturn< ThesRes<()> >
 
 	where  A                    : Handler<M>        ,
 	       M                    : Message    + Send ,
@@ -48,7 +48,7 @@ pub trait ThreadSafeAddress< A: Actor > : Clone
 
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn call<M: Message>( &mut self, msg: M ) -> ThreadSafeResponse< ThesRes<<M as Message>::Result> >
+	fn call<M: Message>( &mut self, msg: M ) -> ThreadSafeReturn< ThesRes<<M as Message>::Result> >
 
 	where  A                    : Handler<M>     ,
 	       M                    : Message + Send ,

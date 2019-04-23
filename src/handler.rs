@@ -4,7 +4,7 @@ pub trait Handler< M: Message > where Self: Actor
 {
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn handle( &mut self, msg: M ) -> Response< <M as Message>::Result >;
+	fn handle( &mut self, msg: M ) -> Return< <M as Message>::Result >;
 }
 
 pub trait ThreadSafeHandler<M>
@@ -18,5 +18,5 @@ pub trait ThreadSafeHandler<M>
 {
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn handle( &mut self, msg: M ) -> ThreadSafeResponse< <M as Message>::Result >;
+	fn handle( &mut self, msg: M ) -> ThreadSafeReturn< <M as Message>::Result >;
 }
