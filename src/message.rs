@@ -1,5 +1,5 @@
-pub trait Message: 'static
+pub trait Message: 'static + Send
 {
-	type Return: 'static;
+	type Return: 'static + Send;
 }
 

@@ -31,8 +31,21 @@ pub use
 
 use std::{ pin::Pin, future::Future };
 //
-pub type           Return<'a, R> = Pin<Box< dyn Future<Output = R> + 'a        >>;
-pub type ThreadSafeReturn<'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
+pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a >> ;
+pub type BoxEnvelope <    A> = Box< dyn Envelope<A> >                  ;
+pub type BoxRecipient<    M> = Box< dyn Recipient<M> >                 ;
+
+
+pub mod thread_safe
+{
+	use std::{ pin::Pin, future::Future };
+	use crate::*;
+
+	pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >> ;
+	pub type BoxEnvelope <    A> = Box< dyn Envelope<A>  + Send >                 ;
+	pub type BoxRecipient<    M> = Box< dyn Recipient<M> + Send >                 ;
+}
+
 
 pub type ThesRes<T> = Result<T, failure::Error>;
 

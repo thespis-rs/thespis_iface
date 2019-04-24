@@ -1,4 +1,4 @@
-use crate :: { import::*, * };
+use crate :: { import::*, *, thread_safe::{ Return, BoxRecipient } };
 
 
 pub trait Recipient< M: Message >
@@ -13,6 +13,6 @@ pub trait Recipient< M: Message >
 	//
 	fn call( &mut self, msg: M ) -> Return< ThesRes<<M as Message>::Return> >;
 
-	fn clone_box( &self ) -> Box< dyn Recipient<M> >;
+	fn clone_box( &self ) -> BoxRecipient<M>;
 }
 
