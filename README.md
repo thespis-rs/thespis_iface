@@ -32,5 +32,19 @@ The interface of thespis (contains only traits)
 - clean up benches and write benchmarks for remote actors
 - stream handler
 - on generic impls, tag methods as default, so that users can override them for specific types.
+- remote should store and resend messages for call if we don't get an acknowledgement? If ever you receive twice, you should drop it? Does tcp not guarantee arrival here? What with connection loss? The concept is best efforts to deliver a message at most once.
+- Do not return failure::Error from interface, but a library specific error? Then again, this allows impls to define what errors they can throw?
+
+
+## Design issues:
+
+- notion of "one message at a time". This is only necessary if the actor has mutable state. If the actor works without mutable state, it can be run in parallel. In thespis there is currently no way to create this optimization. In actix this is represented by sync actors, where you spawn several of them on different threads and then have one address for the lot. It would be nice if we could have like a mailbox type which shall give you only an immutable reference to self, and now it will process messages in parallel. This will however require a different Handler trait, and that's not very elegant.
+
+- Address is capability. Currently we work on "in process" stuff (the programmer compiling is deemed responsible for the outcome), so not much security considerations are in place. And we work on cross process communication where we consider an all public interface. A process provides services, and if it accepts a connection, it specifies which services will respond on that connection, but it's not more fine grained than that ATM. Eg. We have not implemented any authentication/authorization/encryption/signing.
+Consider how you make something available to some entity that is authorized only.
+
+- Two big axises are difficult to implement DRY:
+  - Send vs !Send messages, see: https://users.rust-lang.org/t/how-do-you-all-make-your-dynamic-code-send-agnostic/27567/5
+  - mut vs not mut actor: would allow processing messages in parallel, but needs a different Handler trait, and Handler trait is used throughout as trait bound A: Handler<M>
 
 

@@ -1,20 +1,6 @@
 use crate::{ import::*, * } ;
 
 
-
-
-/// The serialization codec. The numbers come from multiformats multicodec.
-///
-/*#[ derive( Debug, Clone, PartialEq, Eq, FromPrimitive, ToPrimitive ) ]
-//
-pub enum CodecAlg
-{
-	Cbor = 0x51,
-}
-*/
-
-
-
 /// Represents a message as it is over the wire, with some metadata attached to the serialized `Message`.
 ///
 /// The actual wire format is not defined here, but is implementation dependent. This seems bad for intorp,
@@ -30,7 +16,7 @@ pub enum CodecAlg
 /// In contrast, the into and try_from Bytes are not mutable, and implementations are supposed to just
 /// wrap them without copying anything. Providing a view into the memory through the trait methods.
 //
-pub trait MultiService : Into< Bytes > + From< Bytes >
+pub trait MultiService : Into< Bytes > + From< Bytes > + Send + Sync
 {
 	type ServiceID: UniqueID;
 	type ConnID   : UniqueID;

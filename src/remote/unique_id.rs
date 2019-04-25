@@ -1,4 +1,4 @@
-use crate::{ import::*, * } ;
+use crate::{ import::* } ;
 
 /// A unique ID that can be used to globally identify a service in the network. The user
 /// will provide the concrete type and usually implementations for peers and routers can
@@ -14,6 +14,8 @@ pub trait UniqueID :
 	PartialEq        +
 	Eq               +
 	Hash             +
+	Send             +
+	Sync             +
 
 {
 	/// Seed the uniqueID. It might be data that will be hashed to generate the id.

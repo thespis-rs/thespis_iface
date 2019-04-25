@@ -1,4 +1,4 @@
-use crate :: { import::*, * };
+use crate :: { * };
 
 /// Methods can't take generic parameters, because we need to be able to turn this into a trait
 /// object. That's why we have to take pinned boxed futures.

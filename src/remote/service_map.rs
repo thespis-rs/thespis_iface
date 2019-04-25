@@ -1,4 +1,4 @@
-use crate::{ import::*, * } ;
+use crate::{ * } ;
 
 
 /// Type responsible for knowing how call and send messages to an actor based on an Any pointer
@@ -12,14 +12,13 @@ use crate::{ import::*, * } ;
 //
 pub trait ServiceMap<MulService: MultiService>
 {
-	fn send_service( &self, msg: MulService, receiver: &Box<dyn Any> );
+	fn send_service( &self, msg: MulService, receiver: &BoxAny );
 
 	fn call_service
 	(
-		&self                                            ,
-		 msg        :  MulService                        ,
-		 receiver   : &Box< dyn Any >                    ,
-		 return_addr:  Box< dyn Recipient< MulService >> ,
-
+		&self                                   ,
+		 msg        :  MulService               ,
+		 receiver   : &BoxAny                   ,
+		 return_addr:  BoxRecipient<MulService> ,
 	);
 }

@@ -1,4 +1,4 @@
-use crate::{ import::*, * } ;
+use crate::{ import::* } ;
 
 /// Represents a serialization algorithm used for deserializing self describing messages.
 /// Over the wire a protobuf varint shall be used, so it should not be bigger than a u64.
@@ -23,5 +23,7 @@ pub trait CodecAlg :
 	PartialEq        +
 	Eq               +
 	Hash             +
+	Send             +
+	Sync             +
 
 {}

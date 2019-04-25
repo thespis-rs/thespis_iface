@@ -1,5 +1,4 @@
-#![ allow( unused_imports, dead_code ) ]
-#![ feature( await_macro, async_await, futures_api, arbitrary_self_types, specialization, nll, never_type, unboxed_closures, trait_alias, box_syntax, box_patterns, associated_type_defaults ) ]
+#![ feature( await_macro, async_await, arbitrary_self_types, specialization, nll, never_type, unboxed_closures, trait_alias, box_syntax, box_patterns, associated_type_defaults ) ]
 
 
 mod actor     ;
@@ -29,22 +28,19 @@ pub use
 #[ cfg( feature = "remote" ) ] pub use remote::*;
 
 
-use std::{ pin::Pin, future::Future };
+use std::{ pin::Pin, future::Future, any::Any };
 //
-pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a >> ;
-pub type BoxEnvelope <    A> = Box< dyn Envelope<A> >                  ;
-pub type BoxRecipient<    M> = Box< dyn Recipient<M> >                 ;
+pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >> ;
+pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a        >> ;
 
 
-pub mod thread_safe
-{
-	use std::{ pin::Pin, future::Future };
-	use crate::*;
+pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send >        ;
+pub type BoxAny      < > = Box< dyn Any          + Send + Sync > ;
+pub type BoxRecipient<M> = Box< dyn Recipient<M> + Send + Sync > ;
 
-	pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >> ;
-	pub type BoxEnvelope <    A> = Box< dyn Envelope<A>  + Send >                 ;
-	pub type BoxRecipient<    M> = Box< dyn Recipient<M> + Send >                 ;
-}
+#[ cfg( feature = "remote" ) ]
+//
+pub type BoxServiceMap<MS> = Box< dyn ServiceMap<MS> + Send + Sync > ;
 
 
 pub type ThesRes<T> = Result<T, failure::Error>;
@@ -73,11 +69,9 @@ mod import
 	//
 	pub use
 	{
-		bytes :: { Bytes, BytesMut } ,
+		bytes :: { Bytes, BytesMut                 } ,
 		serde :: { Serialize, de::DeserializeOwned } ,
 	};
-
-
 }
 
 
