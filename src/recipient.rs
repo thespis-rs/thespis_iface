@@ -3,7 +3,7 @@ use crate :: { * };
 
 /// Behavior representing the capability of delivering a message to an actor's mailbox.
 //
-pub trait Recipient< M: Message > : Any + Send
+pub trait Recipient< M: Message > : Sink<M, SinkError=Error> + Any + Unpin + Send + Sync + 'static
 
 	where  M: Message,
 
@@ -19,7 +19,7 @@ pub trait Recipient< M: Message > : Any + Send
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn send( &mut self, msg: M ) -> Return< ThesRes<()> >;
+	fn sendr( &mut self, msg: M ) -> Return< ThesRes<()> >;
 
 
 
