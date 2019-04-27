@@ -1,6 +1,6 @@
 # thespis_iface
 The interface of thespis (contains only traits)
-
+[Actor Model of Computation: Scalable Robust Information Systems](https://arxiv.org/abs/1008.1459) by Carl Hewitt.
 
 ## TODO:
 
@@ -34,6 +34,8 @@ The interface of thespis (contains only traits)
 - on generic impls, tag methods as default, so that users can override them for specific types.
 - remote should store and resend messages for call if we don't get an acknowledgement? If ever you receive twice, you should drop it? Does tcp not guarantee arrival here? What with connection loss? The concept is best efforts to deliver a message at most once.
 - Do not return failure::Error from interface, but a library specific error? Then again, this allows impls to define what errors they can throw?
+- check mut requirements. we require mut in alot of places, like when sending on an address the address has to be mut. Should we relieve certain of those. It means for example that a struct which holds an addr must also be mut or put it in Refcell just to send messages.
+- think about and write up the difference in Send + reply_to and Call. Performance, possiblity to pass on reply_to, link the outgoing send to the incoming response? Possibility to send a reply_to address that is not your own?
 
 
 ## Design issues:
