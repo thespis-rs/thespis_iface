@@ -14,7 +14,7 @@ use crate :: { * };
 /// If any errors happen after the message is sent to the mailbox, you shall not be notified.
 /// There shall be no acknowledgement of reception.
 //
-pub trait Recipient< M: Message > : Sink<M, SinkError=Error> + Any + Unpin + Send + Sync + 'static
+pub trait Recipient< M: Message > : Sink<M, SinkError=Error> + Any + Unpin + Send + Sync
 
 	where  M: Message,
 

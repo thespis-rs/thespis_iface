@@ -41,18 +41,14 @@ pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >> ;
 pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a               >> ;
 
 
-pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send + Sync + 'static > ;
-pub type BoxAny      < > = Box< dyn Any          + Send + Sync + 'static > ;
-pub type BoxRecipient<M> = Box< dyn Recipient<M> + Send + Unpin + 'static > ;
-// pub type BoxRecSink  <M> = Box< dyn RecSink  <M> + Send + Sync + 'static > ;
+pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send + Sync  > ;
+pub type BoxAny      < > = Box< dyn Any          + Send + Sync  > ;
+pub type BoxRecipient<M> = Box< dyn Recipient<M> + Send + Unpin  > ;
 
 #[ cfg( feature = "remote" ) ]
 //
-pub type BoxServiceMap<MS> = Box< dyn ServiceMap<MS> + Send + Sync + 'static > ;
+pub type BoxServiceMap<MS> = Box< dyn ServiceMap<MS> + Send + Sync  > ;
 
-
-// pub trait RecSink<M: Message>               : Recipient<M> + Sink<M, SinkError=Error> + Send + Sync + 'static {}
-// impl<T, M: Message> RecSink<M> for T where T: Recipient<M> + Sink<M, SinkError=Error> + Send + Sync + 'static {}
 
 
 pub type ThesRes<T> = Result<T, Error>;
