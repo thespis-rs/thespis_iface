@@ -38,16 +38,16 @@ use std::{ pin::Pin, future::Future, any::Any };
 use failure::Error;
 //
 pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >> ;
-pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a               >> ;
+pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a        >> ;
 
 
-pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send + Sync  > ;
-pub type BoxAny      < > = Box< dyn Any          + Send + Sync  > ;
-pub type BoxRecipient<M> = Box< dyn Recipient<M> + Send + Unpin  > ;
+pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send                > ;
+pub type BoxAny      < > = Box< dyn Any          + Send + Sync         > ;
+pub type BoxRecipient<M> = Box< dyn Recipient<M> + Send + Sync + Unpin > ;
 
 #[ cfg( feature = "remote" ) ]
 //
-pub type BoxServiceMap<MS> = Box< dyn ServiceMap<MS> + Send + Sync  > ;
+pub type BoxServiceMap<MS> = Box< dyn ServiceMap<MS> + Send + Sync > ;
 
 
 
