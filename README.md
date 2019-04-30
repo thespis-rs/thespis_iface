@@ -4,10 +4,10 @@ The interface of thespis (contains only traits)
 
 ## TODO:
 
-- Get rid of the threadsafe variants of address
+- fix clone on recipient like so: https://stackoverflow.com/revisions/30353928/3
 - oblige all implementors of all traits to implement Debug?
 - go over actix features and see what would be useful to have (backpressure?)
-- remote Addr? if the actor is known?
+- remote Addr? if the actor is known compile time?
 - defaults for associated types, like () for Message::Return, and possibility to derive with defaults
 - how can an actor stop itself, should mb be fed to handle, should there be a method self.mb, should there be a stop method on mailbox
 - do some proper research on tokio reactor. Just figured out we don't need a tokio runtime to use stuff that uses epoll. A futures 0.3 executor will do just fine, just using compat on the futures and streams from tokio.
@@ -36,7 +36,11 @@ The interface of thespis (contains only traits)
 - Do not return failure::Error from interface, but a library specific error? Then again, this allows impls to define what errors they can throw?
 - check mut requirements. we require mut in alot of places, like when sending on an address the address has to be mut. Should we relieve certain of those. It means for example that a struct which holds an addr must also be mut or put it in Refcell just to send messages.
 - think about and write up the difference in Send + reply_to and Call. Performance, possiblity to pass on reply_to, link the outgoing send to the incoming response? Possibility to send a reply_to address that is not your own?
-
+- enable CI testing
+- enable dependabot
+- code coverage?
+- impl Sink for references? &'a Addr<A>
+- currently spawned tasks swallow panics... We should do something about that.
 
 ## Design issues:
 

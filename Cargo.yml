@@ -8,19 +8,17 @@ package:
 features:
 
   default: [ std, derive, remote ]
-  std    : [ futures-preview/std ]
-  derive : [ thespis_derive      ]
-  remote : [ serde, bytes, num-traits, num-derive ]
+  std       : [ futures-preview/std ]
+  derive    : [ thespis_derive      ]
+  remote    : [ serde, bytes ]
 
 dependencies:
 
-  futures-preview: { version: ^0.3.0-alpha.14, features: [ nightly ], default-features: false }
+  futures-preview: { version: ^0.3.0-alpha.15, features: [ nightly ], default-features: false }
   thespis_derive : { path: ../thespis_derive, optional: true  }
   failure        : ^0.1
-  serde          : { version: ^1  , optional: true, default-features: false }
-  bytes          : { version: ^0.4, optional: true                          }
 
-  # TODO: do we still want these?
+  # remote:
   #
-  num-traits     : { version: ^0.2,                          optional: true }
-  num-derive     : { version: ^0.2,                          optional: true }
+  serde: { version: ^1  , optional: true, default-features: false }
+  bytes: { version: ^0.4, optional: true                          }

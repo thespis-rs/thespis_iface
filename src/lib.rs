@@ -30,6 +30,7 @@ pub use futures::sink::{ Sink, SinkExt };
 
 
 #[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor };
+
 #[ cfg( feature = "remote" ) ] mod remote;
 #[ cfg( feature = "remote" ) ] pub use remote::*;
 
@@ -58,7 +59,7 @@ mod import
 {
 	pub use
 	{
-		std     ::
+		std::
 		{
 			sync    :: Arc                ,
 			pin     :: Pin                ,

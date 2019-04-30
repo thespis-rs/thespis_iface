@@ -9,15 +9,7 @@ version = "^0.4"
 [dependencies.futures-preview]
 default-features = false
 features = ["nightly"]
-version = "^0.3.0-alpha.14"
-
-[dependencies.num-derive]
-optional = true
-version = "^0.2"
-
-[dependencies.num-traits]
-optional = true
-version = "^0.2"
+version = "^0.3.0-alpha.15"
 
 [dependencies.serde]
 default-features = false
@@ -31,7 +23,7 @@ path = "../thespis_derive"
 [features]
 default = ["std", "derive", "remote"]
 derive = ["thespis_derive"]
-remote = ["serde", "bytes", "num-traits", "num-derive"]
+remote = ["serde", "bytes"]
 std = ["futures-preview/std"]
 
 [package]
