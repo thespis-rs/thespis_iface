@@ -32,6 +32,23 @@ pub trait Recipient< M: Message > : Sink<M, SinkError=Error> + Any + Unpin + Sen
 	//
 	fn call( &mut self, msg: M ) -> Return< ThesRes<<M as Message>::Return> >;
 
+	/// Get a clone of this recipient as a `Box<Recipient<M>>`.
+	//
 	fn clone_box( &self ) -> BoxRecipient<M>;
+
+	/// Get a unique identifier for the actor this will send to, so you can verify
+	/// if two recipients deliver to the same actor.
+	///
+	/// If you get an error: `cannot infer type for `M`, try:
+	///
+	/// ```ignore
+	/// // Replace XXX with a message type this actor supports.
+	/// //
+	/// <Addr<Actor> as Recipient<XXX>>::actor_id( &addr );
+	/// ```
+	/// I have only come across this problem in a macro, but felt it better to give hints
+	/// here for others. Normally this is not needed.
+	//
+	fn actor_id( &self ) -> usize;
 }
 

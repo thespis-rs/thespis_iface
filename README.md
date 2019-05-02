@@ -45,6 +45,8 @@ The interface of thespis (contains only traits)
 - code coverage?
 - impl Sink for references? &'a Addr<A>
 - currently spawned tasks swallow panics... We should do something about that.
+- try to relax pinning requirements where we can and impl unpin for things like addr to avoid
+  forwarding pinning requirements to Actor.
 
 ## Design issues:
 
