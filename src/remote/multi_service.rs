@@ -13,7 +13,7 @@ use crate::{ import::*, * } ;
 /// The Into and From Bytes are not mutable, implementations are supposed to just
 /// wrap them without copying anything. Providing a view into the memory through the trait methods.
 //
-pub trait MultiService : Into< Bytes > + From< Bytes > + Send + Sync
+pub trait MultiService : Into< Bytes > + From< Bytes > + Send
 {
 	type ServiceID: UniqueID;
 	type ConnID   : UniqueID;
