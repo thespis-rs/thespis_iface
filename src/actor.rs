@@ -1,4 +1,4 @@
-use crate :: { *, import::* };
+use crate :: { * };
 
 
 /// An actor is an isolated computing unit. For an introduction to the actor model, see:
@@ -9,11 +9,11 @@ pub trait Actor: 'static
 	/// Gets called just before the mailbox starts listening for incoming messages.
 	/// You can do this to do setup for your actor.
 	//
-	fn started ( &mut self ) -> Return<()> { async {}.boxed() }
+	fn started ( &mut self ) -> Return<()> { Box::pin( async {} ) }
 
 	/// Gets called just after the mailbox stops listening for messages.
 	/// You can use this to do cleanup.
 	//
-	fn stopped ( &mut self ) -> Return<()> { async {}.boxed() }
+	fn stopped ( &mut self ) -> Return<()> { Box::pin( async {} ) }
 }
 
