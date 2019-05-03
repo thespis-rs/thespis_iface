@@ -47,6 +47,10 @@ The interface of thespis (contains only traits)
 - currently spawned tasks swallow panics... We should do something about that.
 - try to relax pinning requirements where we can and impl unpin for things like addr to avoid
   forwarding pinning requirements to Actor.
+- use juliex and crossbeam channels? in pharos as well?
+- can we move the service recipient out of the macro? Like have a generic method on peer that will return
+  you a recipient if the peer can reach that service?
+- compile time verification that a relay actually relays the sids we are given in a peer?
 
 ## Design issues:
 

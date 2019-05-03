@@ -10,15 +10,26 @@ use crate::{ * } ;
 /// TODO: generic type or associated type? Does it make sense to ever impl this twice for the same type
 ///       with a different MultiService type?
 //
-pub trait ServiceMap<MulService: MultiService>
+pub trait ServiceMap<MS: MultiService>
 {
-	fn send_service( &self, msg: MulService, receiver: &BoxAny );
+	/// Return a boxed ServiceMap.
+	/// This allows for cleaner api's as you don't have to pass a Type parameter and a boxed value.
+	//
+	fn boxed() -> BoxServiceMap<MS> where Self: Sized;
 
+	/// Send a message to a handler. This should take care of deserialization.
+	//
+	fn send_service( &self, msg: MS, receiver: &BoxAny );
+
+	/// Call a Service.
+	/// This should take care of deserialization. The return address is the address of the peer
+	/// to which the serialized answer shall be send.
+	//
 	fn call_service
 	(
-		&self                                   ,
-		 msg        :  MulService               ,
-		 receiver   : &BoxAny                   ,
-		 return_addr:  BoxRecipient<MulService> ,
+		&self                           ,
+		 msg        :  MS               ,
+		 receiver   : &BoxAny           ,
+		 return_addr:  BoxRecipient<MS> ,
 	);
 }
