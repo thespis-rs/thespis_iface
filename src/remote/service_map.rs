@@ -7,15 +7,13 @@ use crate::{ * } ;
 /// This is the part of the code that is necessarily in the client code, usually by using a macro,
 /// because the types of services are not known to the actor implementation.
 ///
-/// TODO: generic type or associated type? Does it make sense to ever impl this twice for the same type
-///       with a different MultiService type?
 //
-pub trait ServiceMap<MS: MultiService>
+pub trait ServiceMap<MS: MultiService, RecipientError>
 {
 	/// Return a boxed ServiceMap.
 	/// This allows for cleaner api's as you don't have to pass a Type parameter and a boxed value.
 	//
-	fn boxed() -> BoxServiceMap<MS> where Self: Sized;
+	fn boxed() -> BoxServiceMap<MS, RecipientError> where Self: Sized;
 
 	/// Send a message to a handler. This should take care of deserialization.
 	//
@@ -27,9 +25,9 @@ pub trait ServiceMap<MS: MultiService>
 	//
 	fn call_service
 	(
-		&self                           ,
-		 msg        :  MS               ,
-		 receiver   : &BoxAny           ,
-		 return_addr:  BoxRecipient<MS> ,
+		&self                                           ,
+		 msg        :  MS                               ,
+		 receiver   : &BoxAny                           ,
+		 return_addr:  BoxRecipient<MS, RecipientError> ,
 	);
 }

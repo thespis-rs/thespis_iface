@@ -15,15 +15,17 @@ use crate::{ import::* } ;
 ///
 pub trait CodecAlg :
 
-	Into< Bytes >    +
-	TryFrom< Bytes > +
-	Debug            +
-	Display          +
-	Clone            +
-	PartialEq        +
-	Eq               +
-	Hash             +
-	Send             +
-	Sync             +
+	Into< Bytes >                                     +
+	Debug                                             +
+	Display                                           +
+	Clone                                             +
+	PartialEq                                         +
+	Eq                                                +
+	Hash                                              +
+	Send                                              +
+	Sync                                              +
+	TryFrom< Bytes, Error=<Self as CodecAlg>::Error > +
 
-{}
+{
+	type Error: std::error::Error;
+}

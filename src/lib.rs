@@ -36,7 +36,6 @@ pub use futures::sink::{ Sink, SinkExt };
 
 
 use std::{ pin::Pin, future::Future, any::Any };
-use failure::Error;
 //
 pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >> ;
 pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a        >> ;
@@ -44,15 +43,16 @@ pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a        >> ;
 
 pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send                > ;
 pub type BoxAny      < > = Box< dyn Any          + Send + Sync         > ;
-pub type BoxRecipient<M> = Box< dyn Recipient<M> + Send + Sync + Unpin > ;
+pub type BoxRecipient<M, E> = Box< dyn Recipient<M, Error=E, SinkError=E> + Send + Sync + Unpin > ;
 
 #[ cfg( feature = "remote" ) ]
 //
-pub type BoxServiceMap<MS> = Box< dyn ServiceMap<MS> + Send + Sync > ;
+pub type BoxServiceMap<MS, RE> = Box< dyn ServiceMap<MS, RE> + Send + Sync > ;
 
 
 
-pub type ThesRes<T> = Result<T, Error>;
+// pub type ThesRes      <T> = Result< T, Box<dyn std::error::Error + Send> >;
+// pub type ThesResNoSend<T> = Result< T, Box<dyn std::error::Error       > >;
 
 
 mod import
@@ -71,7 +71,6 @@ mod import
 		},
 
 		futures :: { prelude::{ FutureExt, Stream, Sink }, channel::{ oneshot, mpsc }, task::Spawn } ,
-		failure :: { Error } ,
 	};
 
 	#[ cfg( feature = "remote" ) ]

@@ -15,14 +15,16 @@ use crate :: { * };
 //
 pub trait Executor
 {
+	type Error: std::error::Error;
+
 	/// Spawn a future on a threadpool
 	///
-	fn spawn_pool( &self, fut: Pin<Box< dyn Future< Output = () > + 'static >> ) -> ThesRes<()>;
+	fn spawn_pool( &self, fut: Pin<Box< dyn Future< Output = () > + 'static >> ) -> Result<(), Self::Error>;
 
 	/// Spawn a future without creating new threads, and without paying for thread synchronization
 	/// TODO: Why does this return a result?
 	///
-	fn spawn( &self, fut: Pin<Box< dyn Future< Output = () > + 'static >> ) -> ThesRes<()>;
+	fn spawn( &self, fut: Pin<Box< dyn Future< Output = () > + 'static >> ) -> Result<(), Self::Error>;
 
 	/// Block the current thread and run the given future and all the tasks it spawned. Return when the
 	/// original future and all tasks spawned by it have resolved.

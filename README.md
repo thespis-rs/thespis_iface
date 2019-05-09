@@ -51,8 +51,12 @@ The interface of thespis (contains only traits)
 - can we move the service recipient out of the macro? Like have a generic method on peer that will return
   you a recipient if the peer can reach that service?
 - compile time verification that a relay actually relays the sids we are given in a peer?
+- use generic-channel crate? allow ring-channel
+- we could make a more ergonomic api on peer if we store handlers in service map. It would move code from peer to the macro, but it would allow something like `let (peer_addr, peer_events) = listen_tcp( "127.0.0.1:4343", vec![ service_map1, service_map2 ] );` which is currently impossible, because you need to call register_service on peer with hardcoded types. Service map won't be a zero sized type anymore, but we wouldn't have to keep a bunch of them like we do right now. We could store them consistently like relays, sid -> id, id -> service map. We could even maybe create greater consistency by creating a relay map. It would move responsibility into those objects, lightening the impl of peer.
 
 ## Design issues:
+
+- The wire format is a hand baked solution just to get it working. Now we should find out what the final formats might look like. Cap'n proto? or SBE? : https://polysync.io/blog/session-types-for-hearty-codecs
 
 - notion of "one message at a time". This is only necessary if the actor has mutable state. If the actor works without mutable state, it can be run in parallel. In thespis there is currently no way to create this optimization. In actix this is represented by sync actors, where you spawn several of them on different threads and then have one address for the lot. It would be nice if we could have like a mailbox type which shall give you only an immutable reference to self, and now it will process messages in parallel. This will however require a different Handler trait, and that's not very elegant.
 

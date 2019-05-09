@@ -15,9 +15,10 @@ use crate::{ import::*, * } ;
 //
 pub trait MultiService : Into< Bytes > + From< Bytes > + Send
 {
-	type ServiceID: UniqueID;
-	type ConnID   : UniqueID;
-	type CodecAlg : CodecAlg;
+	type ServiceID: UniqueID         ;
+	type ConnID   : UniqueID         ;
+	type CodecAlg : CodecAlg         ;
+	type Error    : std::error::Error;
 
 	/// Create a new MultiService. I don't like to put constructors in a trait, but for now we need it in
 	/// our impl of Peer and service_map_macro.
@@ -43,15 +44,15 @@ pub trait MultiService : Into< Bytes > + From< Bytes > + Send
 	/// The reference implementation combines a unique type id with a namespace so that
 	/// several processes can accept the same type of service under a unique name each.
 	//
-	fn service ( &self ) -> Result< Self::ServiceID, Error > ;
+	fn service ( &self ) -> Result< Self::ServiceID, Self::Error > ;
 
 	/// The connection id. This is used to match responses to outgoing calls.
 	//
-	fn conn_id ( &self ) -> Result< Self::ConnID   , Error > ;
+	fn conn_id ( &self ) -> Result< Self::ConnID   , Self::Error > ;
 
 	/// The serialization codec for the payload.
 	//
-	fn encoding( &self ) -> Result< Self::CodecAlg , Error > ;
+	fn encoding( &self ) -> Result< Self::CodecAlg , Self::Error > ;
 
 	/// The serialized payload message.
 	//

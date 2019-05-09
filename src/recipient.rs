@@ -14,11 +14,14 @@ use crate :: { * };
 /// If any errors happen after the message is sent to the mailbox, you shall not be notified.
 /// There shall be no acknowledgement of reception.
 //
-pub trait Recipient< M: Message > : Sink<M, SinkError=Error> + Any + Unpin + Send
+pub trait Recipient<M>
 
-	where  M: Message,
+	where  Self: Sink<M, SinkError=<Self as Recipient<M>>::Error> + Any + Unpin + Send,
+	       M   : Message,
 
 {
+	type Error: std::error::Error;
+
 	/// Call an actor and receive the result of the call. This is a two-way operation. Calling with
 	/// a message type that has `Return=()` will notify you that the message has been handled by the
 	/// receiver.
@@ -30,11 +33,11 @@ pub trait Recipient< M: Message > : Sink<M, SinkError=Error> + Any + Unpin + Sen
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn call( &mut self, msg: M ) -> Return< ThesRes<<M as Message>::Return> >;
+	fn call( &mut self, msg: M ) -> Return< Result<<M as Message>::Return, Self::Error> >;
 
 	/// Get a clone of this recipient as a `Box<Recipient<M>>`.
 	//
-	fn clone_box( &self ) -> BoxRecipient<M>;
+	fn clone_box( &self ) -> BoxRecipient<M, Self::Error>;
 
 	/// Get a unique identifier for the actor this will send to, so you can verify
 	/// if two recipients deliver to the same actor.

@@ -5,11 +5,13 @@ use crate :: { * };
 //
 pub trait Mailbox< A: Actor >
 {
+	type Error: std::error::Error;
+
 	/// Start the mailbox. This consumes the mailbox for now, so get your addresses before running this.
 	/// You should spawn the future on a default executor.
 	///
 	//
-	fn start( self, actor: A ) -> ThesRes<()>;
+	fn start( self, actor: A ) -> Result<(), Self::Error>;
 
 	/// Return a future that allows starting the mailbox.
 	///
