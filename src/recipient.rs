@@ -16,12 +16,10 @@ use crate :: { * };
 //
 pub trait Recipient<M>
 
-	where  Self: Sink<M, SinkError=<Self as Recipient<M>>::Error> + Any + Unpin + Send,
+	where  Self: Sink<M> + Any + Unpin + Send,
 	       M   : Message,
 
 {
-	type Error: std::error::Error;
-
 	/// Call an actor and receive the result of the call. This is a two-way operation. Calling with
 	/// a message type that has `Return=()` will notify you that the message has been handled by the
 	/// receiver.
@@ -33,11 +31,11 @@ pub trait Recipient<M>
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn call( &mut self, msg: M ) -> Return< Result<<M as Message>::Return, Self::Error> >;
+	fn call( &mut self, msg: M ) -> Return< Result<<M as Message>::Return, <Self as Sink<M>>::SinkError> >;
 
 	/// Get a clone of this recipient as a `Box<Recipient<M>>`.
 	//
-	fn clone_box( &self ) -> BoxRecipient<M, Self::Error>;
+	fn clone_box( &self ) -> BoxRecipient<M, <Self as Sink<M>>::SinkError>;
 
 	/// Get a unique identifier for the actor this will send to, so you can verify
 	/// if two recipients deliver to the same actor.

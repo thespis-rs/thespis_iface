@@ -9,6 +9,6 @@ pub trait Address<A, M> : Clone + Recipient<M>
 	       M                     : Message           ,
 	      <M as Message>::Return :                   ,
 {
-	fn recipient( &self ) -> BoxRecipient<M, <Self as Recipient<M>>::Error >;
+	fn recipient( &self ) -> BoxRecipient<M, <Self as Sink<M>>::SinkError >;
 }
 
