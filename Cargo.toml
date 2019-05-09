@@ -1,29 +1,17 @@
 # Auto-generated from "Cargo.yml"
 [dependencies]
-failure = "^0.1"
-
-[dependencies.bytes]
-optional = true
-version = "^0.4"
-
 [dependencies.futures-preview]
 default-features = false
 features = ["nightly"]
 version = "^0.3.0-alpha.15"
-
-[dependencies.serde]
-default-features = false
-optional = true
-version = "^1"
 
 [dependencies.thespis_derive]
 optional = true
 path = "../thespis_derive"
 
 [features]
-default = ["std", "derive", "remote"]
+default = ["std", "derive"]
 derive = ["thespis_derive"]
-remote = ["serde", "bytes"]
 std = ["futures-preview/std"]
 
 [package]

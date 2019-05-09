@@ -7,18 +7,13 @@ package:
 
 features:
 
-  default: [ std, derive, remote ]
+  default: [ std, derive ]
   std       : [ futures-preview/std ]
   derive    : [ thespis_derive      ]
-  remote    : [ serde, bytes ]
 
 dependencies:
 
   futures-preview: { version: ^0.3.0-alpha.15, features: [ nightly ], default-features: false }
   thespis_derive : { path: ../thespis_derive, optional: true  }
-  failure        : ^0.1
+  # failure        : ^0.1
 
-  # remote:
-  #
-  serde: { version: ^1  , optional: true, default-features: false }
-  bytes: { version: ^0.4, optional: true                          }
