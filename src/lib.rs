@@ -4,6 +4,7 @@
 mod actor     ;
 mod address   ;
 mod envelope  ;
+mod error     ;
 mod executor  ;
 mod handler   ;
 mod mailbox   ;
@@ -15,6 +16,7 @@ pub use
 	actor     :: * ,
 	address   :: * ,
 	envelope  :: * ,
+	error     :: * ,
 	executor  :: * ,
 	handler   :: * ,
 	mailbox   :: * ,
@@ -41,6 +43,7 @@ pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a        >> ;
 pub type BoxEnvelope <A>    = Box< dyn Envelope<A>               + Send                > ;
 pub type BoxAny      < >    = Box< dyn Any                       + Send + Sync         > ;
 pub type BoxRecipient<M, E> = Box< dyn Recipient<M, SinkError=E> + Send + Sync + Unpin > ;
+pub type ThesRes<T>         = Result< T, ThesErr >;
 
 
 mod import
@@ -49,16 +52,17 @@ mod import
 	{
 		std::
 		{
+			fmt                           ,
 			sync    :: Arc                ,
 			pin     :: Pin                ,
 			future  :: Future             ,
 			convert :: TryFrom            ,
 			hash    :: Hash               ,
-			fmt     :: { Debug, Display } ,
 			any     :: Any                ,
 		},
 
 		futures :: { prelude::{ FutureExt, Stream, Sink }, channel::{ oneshot, mpsc }, task::Spawn } ,
+		failure   :: { Fail, bail, err_msg, AsFail, Context as FailContext, Backtrace, ResultExt } ,
 	};
 }
 
