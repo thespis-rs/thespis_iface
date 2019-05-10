@@ -40,13 +40,9 @@ pub struct ThesErr
 //
 pub enum ThesErrKind
 {
-	#[ fail( display = "Failed to spawn a future in: {}", context ) ]
+	#[ fail( display = "Cannot initialize global executor twice" ) ]
 	//
-	Spawn { context: String },
-
-	#[ fail( display = "Mailbox Full for: {}", actor ) ]
-	//
-	MailboxFull { actor: String },
+	DoubleExecutorInit,
 
 	#[ fail( display = "Mailbox crashed before we could send the message, actor: {}", actor ) ]
 	//
@@ -56,9 +52,17 @@ pub enum ThesErrKind
 	//
 	MailboxClosedBeforeResponse { actor: String },
 
-	#[ fail( display = "Cannot initialize global executor twice" ) ]
+	#[ fail( display = "Mailbox Full for: {}", actor ) ]
 	//
-	DoubleExecutorInit,
+	MailboxFull { actor: String },
+
+	#[ fail( display = "Failed to spawn a future in: {}", context ) ]
+	//
+	Spawn { context: String },
+
+	#[ fail( display = "Operation timed out: {}", context ) ]
+	//
+	Timeout { context: String },
 }
 
 

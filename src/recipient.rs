@@ -16,7 +16,7 @@ use crate :: { * };
 //
 pub trait Recipient<M>
 
-	where  Self: Sink<M> + Any + Unpin + Send,
+	where  Self: Sink<M, SinkError=ThesErr> + Any + Unpin + Send,
 	       M   : Message,
 
 {
@@ -31,11 +31,11 @@ pub trait Recipient<M>
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn call( &mut self, msg: M ) -> Return< Result<<M as Message>::Return, <Self as Sink<M>>::SinkError> >;
+	fn call( &mut self, msg: M ) -> Return<ThesRes< <M as Message>::Return >>;
 
 	/// Get a clone of this recipient as a `Box<Recipient<M>>`.
 	//
-	fn clone_box( &self ) -> BoxRecipient<M, <Self as Sink<M>>::SinkError>;
+	fn clone_box( &self ) -> BoxRecipient<M>;
 
 	/// Get a unique identifier for the actor this will send to, so you can verify
 	/// if two recipients deliver to the same actor.
