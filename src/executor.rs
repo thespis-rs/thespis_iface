@@ -11,21 +11,21 @@ use crate :: { * };
 //        That makes it strange that this trait is here instead of in thespis_impl, but it allows libraries
 //        to provide executor impls without having to depend on thespis_impl.
 //
-//        Try to make this so it works for both Send and !Send, for features generic over Output.
+//        Try to make this so it works for both Send and !Send, for futures generic over Output.
 //
 pub trait Executor
 {
 	/// Spawn a future on a threadpool
-	///
+	//
 	fn spawn_pool( &self, fut: Pin<Box< dyn Future< Output = () > + 'static >> ) -> ThesRes<()>;
 
 	/// Spawn a future without creating new threads, and without paying for thread synchronization
-	/// TODO: Why does this return a result?
-	///
+	/// This returns a result because the futures 0.3 executor can fail...
+	//
 	fn spawn( &self, fut: Pin<Box< dyn Future< Output = () > + 'static >> ) -> ThesRes<()>;
 
 	/// Block the current thread and run the given future and all the tasks it spawned. Return when the
 	/// original future and all tasks spawned by it have resolved.
-	///
+	//
 	fn run( &self );
 }

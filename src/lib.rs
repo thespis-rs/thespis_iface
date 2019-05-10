@@ -1,5 +1,7 @@
 #![ feature( await_macro, async_await, arbitrary_self_types, specialization, nll, never_type, unboxed_closures, trait_alias, box_syntax, box_patterns, associated_type_defaults ) ]
 
+#![deny(bare_trait_objects)]
+#![forbid(unsafe_code)]
 
 mod actor     ;
 mod address   ;
