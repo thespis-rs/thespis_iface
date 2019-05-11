@@ -1,4 +1,4 @@
-use crate :: { * };
+use crate :: { *, import::* };
 
 
 /// Behavior representing the capability of delivering a message to an actor's mailbox.
@@ -16,7 +16,7 @@ use crate :: { * };
 //
 pub trait Recipient<M>
 
-	where  Self: Sink<M, SinkError=ThesErr> + Any + Unpin + Send,
+	where  Self: Sink<M, SinkError=ThesErr> + Any + fmt::Debug + Unpin + Send,
 	       M   : Message,
 
 {
