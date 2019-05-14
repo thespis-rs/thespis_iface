@@ -42,6 +42,10 @@ pub struct ThesErr
 //
 pub enum ThesErrKind
 {
+	#[ fail( display = "A connection error happened: {}", what ) ]
+	//
+	Connection { what: String },
+
 	#[ fail( display = "Deserialize: Failed to deserialize: {}", what ) ]
 	//
 	Deserialize { what: String },
