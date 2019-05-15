@@ -1,10 +1,6 @@
 # thespis_iface
 The interface of the thespis actor model (contains only traits).
 
-## References:
-
-- [Actor Model of Computation: Scalable Robust Information Systems](https://arxiv.org/abs/1008.1459) by Carl Hewitt.
-- video: [Hewitt, Meijer and Szyperski: The Actor Model (everything you wanted to know...)](https://youtu.be/7erJ1DV_Tlo)
 
 ## TODO:
 
@@ -38,7 +34,7 @@ Consider how you make something available to some entity that is authorized only
 
 - Two big axises are difficult to implement DRY:
   - Send vs !Send messages, see: https://users.rust-lang.org/t/how-do-you-all-make-your-dynamic-code-send-agnostic/27567/5
-  - mut vs not mut actor: would allow processing messages in parallel, but needs a different Handler trait, and Handler trait is used throughout as trait bound A: Handler<M>
+  - mut vs not mut actor: would allow processing messages in parallel, but needs a different Handler trait, and Handler trait is used throughout as trait bound A: Handler<M>. In that light, actix solved this reasonably well I suppose.
 
 - our generic story does not work for remote services right now. Both service map and Peer cannot really
   handle other types. We should work on that and test it. The service_map macro has hardoded references to ServiceID, Peer and needs to create Multiservice to send errors back to the remote.
