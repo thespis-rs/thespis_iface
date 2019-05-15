@@ -13,7 +13,7 @@ features:
 
 dependencies:
 
-  futures-preview: { version: ^0.3.0-alpha.15, features: [ nightly ], default-features: false }
+  futures-preview: { version: ^0.3.0-alpha.16, features: [ nightly ], default-features: false }
   thespis_derive : { path: ../thespis_derive, optional: true  }
   failure        : ^0.1
 

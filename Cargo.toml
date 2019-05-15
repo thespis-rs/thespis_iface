@@ -5,7 +5,7 @@ failure = "^0.1"
 [dependencies.futures-preview]
 default-features = false
 features = ["nightly"]
-version = "^0.3.0-alpha.15"
+version = "^0.3.0-alpha.16"
 
 [dependencies.thespis_derive]
 optional = true
