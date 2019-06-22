@@ -7,6 +7,8 @@ use crate :: { * };
 //
 pub trait Envelope<A> where A: Actor
 {
+	/// Have the actor handle the message
+	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
 	fn handle( self: Box<Self>, actor: &mut A ) -> ReturnNoSend<()>;
