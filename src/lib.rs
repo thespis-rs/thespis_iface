@@ -12,7 +12,6 @@ mod actor     ;
 mod address   ;
 mod envelope  ;
 mod error     ;
-mod executor  ;
 mod handler   ;
 mod mailbox   ;
 mod message   ;
@@ -24,7 +23,6 @@ pub use
 	address   :: * ,
 	envelope  :: * ,
 	error     :: * ,
-	executor  :: * ,
 	handler   :: * ,
 	mailbox   :: * ,
 	message   :: * ,
