@@ -15,5 +15,5 @@ pub trait Mailbox< A: Actor >
 	///
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn start_fut( self, actor: A ) -> ReturnNoSend<'static, ()>;
+	fn start_fut( self, actor: A ) -> Return<'static, ()>;
 }

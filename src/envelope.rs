@@ -5,11 +5,11 @@ use crate :: { * };
 ///
 /// It knows how to call handle on a given actor of the correct type.
 //
-pub trait Envelope<A> where A: Actor
+pub trait Envelope<A> where A: Actor, Self: Send
 {
 	/// Have the actor handle the message
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn handle( self: Box<Self>, actor: &mut A ) -> ReturnNoSend<()>;
+	fn handle( self: Box<Self>, actor: &mut A ) -> Return<()>;
 }
