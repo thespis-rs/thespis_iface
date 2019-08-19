@@ -16,7 +16,7 @@ use crate :: { *, import::* };
 //
 pub trait Recipient<M>
 
-	where  Self: Sink<M, SinkError=ThesErr> + Any + fmt::Debug + Unpin + Send,
+	where  Self: Sink<M, Error=ThesErr> + Any + fmt::Debug + Unpin + Send,
 	       M   : Message,
 
 {
