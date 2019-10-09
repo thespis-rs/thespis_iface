@@ -11,5 +11,12 @@ pub trait Envelope<A> where A: Actor, Self: Send
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn handle( self: Box<Self>, actor: &mut A ) -> Return<()>;
+	fn handle( self: Box<Self>, actor: &mut A ) -> Return<()> where A: Send;
+
+
+	/// Have the actor handle the message, for !Send Actors.
+	//
+	#[ must_use = "Futures do nothing unless polled" ]
+	//
+	fn handle_local( self: Box<Self>, actor: &mut A ) -> ReturnNoSend<()>;
 }

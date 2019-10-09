@@ -5,13 +5,11 @@ use crate :: { * };
 //
 pub trait Mailbox< A: Actor + Send >
 {
-	/// Start the mailbox. This consumes the mailbox for now, so get your addresses before running this.
-	/// You should spawn the future on a default executor.
-	///
+	/// Start the mailbox. This consumes the mailbox, so get your addresses before running this.
 	//
 	fn start( self, actor: A ) -> ThesRes<()>;
 
-	/// Return a future that allows starting the mailbox.
+	/// Return a future that allows starting the mailbox by spawning it on the executor of your choice.
 	///
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
@@ -19,9 +17,15 @@ pub trait Mailbox< A: Actor + Send >
 }
 
 
-pub trait MailboxFuture< A: Actor >
+pub trait MailboxLocal< A: Actor >
 {
-	/// Return a non-Send future that allows starting the mailbox.
+	/// Start the mailbox. This consumes the mailbox, so get your addresses before running this.
+	//
+	#[ must_use = "Futures do nothing unless polled" ]
+	//
+	fn start_local( self, actor: A ) -> ThesRes<()>;
+
+	/// Return a non-Send future that allows starting the mailbox by spawning it on the executor of your choice.
 	///
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
