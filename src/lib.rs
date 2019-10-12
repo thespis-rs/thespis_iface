@@ -67,7 +67,7 @@ mod import
 		},
 
 		futures :: { prelude::{ Stream, Sink }, future::FutureExt, channel::{ oneshot, mpsc }, task::Spawn } ,
-		failure   :: { Fail, bail, err_msg, AsFail, Context as FailContext, Backtrace, ResultExt } ,
+		failure :: { Fail, bail, err_msg, AsFail, Context as FailContext, Backtrace, ResultExt } ,
 	};
 }
 
