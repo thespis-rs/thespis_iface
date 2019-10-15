@@ -85,18 +85,7 @@ pub enum ThesErrKind
 
 
 
-impl Fail for ThesErr
-{
-	fn cause( &self ) -> Option< &dyn Fail >
-	{
-		self.inner.cause()
-	}
-
-	fn backtrace( &self ) -> Option< &Backtrace >
-	{
-		self.inner.backtrace()
-	}
-}
+impl Fail for ThesErr {}
 
 impl fmt::Display for ThesErr
 {
