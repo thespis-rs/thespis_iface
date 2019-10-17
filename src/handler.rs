@@ -1,5 +1,8 @@
 use crate :: { * };
 
+/// Trait indicating that the implementor can receive messages of a certain type.
+/// An actor can implement Handler for as many types as desired.
+//
 pub trait Handler< M: Message > where Self: Actor
 {
 	/// Define how your actor handles this message type. If your actor is !Send,
@@ -8,7 +11,7 @@ pub trait Handler< M: Message > where Self: Actor
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn handle( &mut self, msg: M ) -> Return< <M as Message>::Return >;
+	fn handle( &mut self, msg: M ) -> Return< '_, <M as Message>::Return >;
 
 
 
@@ -19,7 +22,7 @@ pub trait Handler< M: Message > where Self: Actor
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn handle_local( &mut self, msg: M ) -> ReturnNoSend< <M as Message>::Return >
+	fn handle_local( &mut self, msg: M ) -> ReturnNoSend< '_, <M as Message>::Return >
 	{
 		self.handle( msg )
 	}

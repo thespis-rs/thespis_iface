@@ -46,50 +46,102 @@ pub enum ThesErrKind
 	//
 	#[ fail( display = "A connection error happened: {}", what ) ]
 	//
-	Connection { what: String },
+	Connection
+	{
+		/// Error string from the underlying error.
+		//
+		what: String
+	},
 
 	/// Failed to deserialize
 	//
 	#[ fail( display = "Deserialize: Failed to deserialize: {}", what ) ]
 	//
-	Deserialize { what: String },
+	Deserialize
+	{
+		/// Error string from the underlying error.
+		//
+		what: String
+	},
 
+	/// Cannot initialize global executor twice.
+	//
 	#[ fail( display = "DoubleExecutorInit: Cannot initialize global executor twice" ) ]
 	//
 	DoubleExecutorInit,
 
-	#[ fail( display = "MailboxClosed: Mailbox crashed before we could send the message, actor: {}", actor ) ]
+	/// MailboxClosed: Mailbox panicked before we could send the message.
 	//
-	MailboxClosed { actor: String },
+	#[ fail( display = "MailboxClosed: Mailbox panicked before we could send the message, actor: {}", actor ) ]
+	//
+	MailboxClosed
+	{
+		/// Id of the actor that panicked.
+		//
+		actor: String
+	},
 
+	/// MailboxClosedBeforeResponse: Mailbox crashed after the message was sent but before we got a response.
+	//
 	#[ fail( display = "MailboxClosedBeforeResponse: Mailbox crashed after the message was sent but before we got a response, actor: {}", actor ) ]
 	//
-	MailboxClosedBeforeResponse { actor: String },
+	MailboxClosedBeforeResponse
+	{
+		/// Id of the actor that panicked.
+		//
+		actor: String
+	},
 
+	/// MailboxFull, cannot queue any more messages.
+	//
 	#[ fail( display = "MailboxFull: Mailbox Full for: {}", actor ) ]
 	//
-	MailboxFull { actor: String },
+	MailboxFull
+	{
+		/// Id of the concerned actor.
+		//
+		actor: String
+	},
 
+	/// Failed to serialize.
+	//
 	#[ fail( display = "Serialize: Failed to serialize: {}", what ) ]
 	//
-	Serialize { what: String },
+	Serialize
+	{
+		/// Error string from the underlying error.
+		//
+		what: String
+	},
 
+	/// Failed to spawn a future.
+	//
 	#[ fail( display = "Spawn: Failed to spawn a future in: {}", context ) ]
 	//
-	Spawn { context: String },
+	Spawn
+	{
+		/// Context of error.
+		//
+		context: String
+	},
 
+	/// Some operation timed out
+	//
 	#[ fail( display = "Timeout: {}", context ) ]
 	//
-	Timeout { context: String },
+	Timeout
+	{
+		/// Context of error.
+		//
+		context: String
+	},
 }
 
 
 
-impl Fail for ThesErr {}
-
 impl fmt::Display for ThesErr
 {
-	fn fmt( &self, f: &mut fmt::Formatter ) -> fmt::Result
+	fn fmt( &self, f: &mut fmt::Formatter<'_> ) -> fmt::Result
 	{
 		fmt::Display::fmt( &self.inner, f )
 	}

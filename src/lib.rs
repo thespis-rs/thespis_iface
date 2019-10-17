@@ -1,11 +1,27 @@
-//! Thespis is a simple Actor model.
+// See: https://github.com/rust-lang/rust/issues/44732#issuecomment-488766871
 //!
-//! TODO: document
-//!
-#![ feature( arbitrary_self_types, specialization, nll, never_type, unboxed_closures, trait_alias, box_syntax, box_patterns, associated_type_defaults ) ]
+#![ cfg_attr( feature = "external_doc", feature(external_doc)         ) ]
+#![ cfg_attr( feature = "external_doc", doc(include = "../README.md") ) ]
+//
+#![ doc    ( html_root_url = "https://docs.rs/thespis" ) ]
+#![ deny   ( missing_docs                              ) ]
+#![ forbid ( unsafe_code                               ) ]
+#![ allow  ( clippy::suspicious_else_formatting        ) ]
 
-#![ deny  ( bare_trait_objects ) ]
-#![ forbid( unsafe_code        ) ]
+#![ warn
+(
+	missing_debug_implementations ,
+	missing_docs                  ,
+	nonstandard_style             ,
+	rust_2018_idioms              ,
+	trivial_casts                 ,
+	trivial_numeric_casts         ,
+	unused_extern_crates          ,
+	unused_qualifications         ,
+	single_use_lifetimes          ,
+	unreachable_pub               ,
+	variant_size_differences      ,
+)]
 
 
 mod actor     ;
@@ -41,33 +57,39 @@ pub use futures::sink::{ Sink, SinkExt };
 
 use std::{ pin::Pin, future::Future, any::Any };
 //
+/// A boxed future that is `Send`, shorthand for async trait method return types.
+//
 pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >> ;
+
+/// A boxed future that is not `Send`, shorthand for async trait method return types.
+//
 pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a        >> ;
 
 
+/// Shorthand for a `Send` boxed envelope.
+//
 pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send                > ;
+
+/// Shorthand for a boxed [`Any`] that is Send and Sync.
+//
 pub type BoxAny      < > = Box< dyn Any          + Send + Sync         > ;
+
+/// Shorthand for a boxed [`Recipient`] that is Send and Sync.
+//
 pub type BoxRecipient<M> = Box< dyn Recipient<M> + Send + Sync + Unpin > ;
-pub type ThesRes<T>      = Result< T, ThesErr >;
+
+/// Shorthand for a [Result] with a [ThesErr].
+//
+pub type ThesRes<T> = Result< T, ThesErr >;
 
 
 mod import
 {
-	pub use
+	pub(crate) use
 	{
-		std::
-		{
-			fmt                           ,
-			sync    :: Arc                ,
-			pin     :: Pin                ,
-			future  :: Future             ,
-			convert :: TryFrom            ,
-			hash    :: Hash               ,
-			any     :: Any                ,
-		},
-
-		futures :: { prelude::{ Stream, Sink }, future::FutureExt, channel::{ oneshot, mpsc }, task::Spawn } ,
-		failure :: { Fail, bail, err_msg, AsFail, Context as FailContext, Backtrace, ResultExt } ,
+		std     :: { fmt		                     } ,
+		futures :: { future::FutureExt            } ,
+		failure :: { Fail, Context as FailContext } ,
 	};
 }
 

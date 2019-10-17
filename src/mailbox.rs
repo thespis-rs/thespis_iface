@@ -17,6 +17,8 @@ pub trait Mailbox< A: Actor + Send >
 }
 
 
+/// A mailbox that doesn't require the actor to be `Send`.
+//
 pub trait MailboxLocal< A: Actor >
 {
 	/// Start the mailbox. This consumes the mailbox, so get your addresses before running this.

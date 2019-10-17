@@ -31,7 +31,7 @@ pub trait Recipient<M>
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn call( &mut self, msg: M ) -> Return<ThesRes< <M as Message>::Return >>;
+	fn call( &mut self, msg: M ) -> Return<'_, ThesRes< <M as Message>::Return >>;
 
 	/// Get a clone of this recipient as a `Box<Recipient<M>>`.
 	//
