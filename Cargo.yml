@@ -1,15 +1,50 @@
 package:
 
-  name   : thespis
-  version: 0.1.0
-  authors: [ Naja Melan <najamelan@autistici.org> ]
-  edition: '2018'
+  # When releasing to crates.io:
+  #
+  # - Update CHANGELOG.md.
+  # - Update version numbers in Cargo.yml, Cargo.toml, install section of readme.
+  # - verify CI result
+  # - test dependent crates
+  # - cargo publish
+  # - merge dev branch into master
+  # - create git tag
+  #
+  version       : 0.1.0
+  name          : thespis
+  edition       : '2018'
+  authors       : [ Naja Melan <najamelan@autistici.org> ]
+  description   : The interface of the thespis actor model (contains only traits).
+  license       : Unlicense
+  homepage      : https://github.com/thespis-rs/thespis_iface
+  repository    : https://github.com/thespis-rs/thespis_iface
+  documentation : https://docs.rs/thespis
+  readme        : README.md
+  keywords      : [ async, futures, actor, thespis ]
+  categories    : [ Asynchronous, Concurrency ]
+
+  metadata:
+    docs:
+      rs:
+        features: [ external_doc ]
+
+
+badges:
+
+  maintenance : { status     : actively-developed       }
+  travis-ci   : { repository : thespis-rs/thespis_iface }
+
 
 features:
 
   default: [ std, derive ]
-  std       : [ futures-preview/std ]
-  derive    : [ thespis_derive      ]
+  std    : [ futures-preview/std ]
+  derive : [ thespis_derive      ]
+
+  # only used internally, don't use
+  #
+  external_doc: []
+
 
 dependencies:
 

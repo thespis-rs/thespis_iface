@@ -1,4 +1,11 @@
 # Auto-generated from "Cargo.yml"
+[badges]
+[badges.maintenance]
+status = "actively-developed"
+
+[badges.travis-ci]
+repository = "thespis-rs/thespis_iface"
+
 [dependencies]
 failure = "^0.1"
 
@@ -13,10 +20,24 @@ path = "../thespis_derive"
 [features]
 default = ["std", "derive"]
 derive = ["thespis_derive"]
+external_doc = []
 std = ["futures-preview/std"]
 
 [package]
 authors = ["Naja Melan <najamelan@autistici.org>"]
+categories = ["Asynchronous", "Concurrency"]
+description = "The interface of the thespis actor model (contains only traits)."
+documentation = "https://docs.rs/thespis"
 edition = "2018"
+homepage = "https://github.com/thespis-rs/thespis_iface"
+keywords = ["async", "futures", "actor", "thespis"]
+license = "Unlicense"
 name = "thespis"
+readme = "README.md"
+repository = "https://github.com/thespis-rs/thespis_iface"
 version = "0.1.0"
+
+[package.metadata]
+[package.metadata.docs]
+[package.metadata.docs.rs]
+features = ["external_doc"]
