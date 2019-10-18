@@ -7,8 +7,6 @@ status = "actively-developed"
 repository = "thespis-rs/thespis_iface"
 
 [dependencies]
-failure = "^0.1"
-
 [dependencies.futures-preview]
 default-features = false
 version = "^0.3.0-alpha"

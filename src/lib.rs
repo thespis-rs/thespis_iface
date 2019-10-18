@@ -27,7 +27,6 @@
 mod actor     ;
 mod address   ;
 mod envelope  ;
-mod error     ;
 mod handler   ;
 mod mailbox   ;
 mod message   ;
@@ -38,7 +37,6 @@ pub use
 	actor     :: * ,
 	address   :: * ,
 	envelope  :: * ,
-	error     :: * ,
 	handler   :: * ,
 	mailbox   :: * ,
 	message   :: * ,
@@ -63,33 +61,28 @@ pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >> ;
 
 /// A boxed future that is not `Send`, shorthand for async trait method return types.
 //
-pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a        >> ;
+pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a >> ;
 
 
 /// Shorthand for a `Send` boxed envelope.
 //
-pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send                > ;
+pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send > ;
 
 /// Shorthand for a boxed [`Any`] that is Send and Sync.
 //
-pub type BoxAny      < > = Box< dyn Any          + Send + Sync         > ;
+pub type BoxAny      < > = Box< dyn Any + Send + Sync > ;
 
 /// Shorthand for a boxed [`Recipient`] that is Send and Sync.
 //
-pub type BoxRecipient<M> = Box< dyn Recipient<M> + Send + Sync + Unpin > ;
-
-/// Shorthand for a [Result] with a [ThesErr].
-//
-pub type ThesRes<T> = Result< T, ThesErr >;
+pub type BoxRecipient<M, E> = Box< dyn Recipient<M, Error=E> + Send + Sync + Unpin > ;
 
 
 mod import
 {
 	pub(crate) use
 	{
-		std     :: { fmt		                     } ,
-		futures :: { future::FutureExt            } ,
-		failure :: { Fail, Context as FailContext } ,
+		std       :: { fmt		         } ,
+		futures   :: { future::FutureExt } ,
 	};
 }
 
