@@ -57,24 +57,20 @@ use std::{ pin::Pin, future::Future, any::Any };
 //
 /// A boxed future that is `Send`, shorthand for async trait method return types.
 //
-pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >> ;
+pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
 
 /// A boxed future that is not `Send`, shorthand for async trait method return types.
 //
-pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a >> ;
+pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a >>;
 
 
 /// Shorthand for a `Send` boxed envelope.
 //
-pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send > ;
-
-/// Shorthand for a boxed [`Any`] that is Send and Sync.
-//
-pub type BoxAny      < > = Box< dyn Any + Send + Sync > ;
+pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send >;
 
 /// Shorthand for a boxed [`Recipient`] that is Send and Sync.
 //
-pub type BoxRecipient<M, E> = Box< dyn Recipient<M, Error=E> + Send + Sync + Unpin > ;
+pub type BoxRecipient<M, E> = Box< dyn Recipient<M, Error=E> + Send + Sync + Unpin >;
 
 
 mod import

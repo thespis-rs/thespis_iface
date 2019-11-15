@@ -38,7 +38,7 @@ badges:
 features:
 
   default: [ std, derive ]
-  std    : [ futures-preview/std ]
+  std    : [ futures/std ]
   derive : [ thespis_derive      ]
 
   # only used internally, don't use
@@ -48,6 +48,6 @@ features:
 
 dependencies:
 
-  futures-preview: { version: ^0.3.0-alpha, default-features: false }
-  thespis_derive : { path: ../thespis_derive, optional: true  }
+  futures        : { version: ^0.3, default-features: false }
+  thespis_derive : { path: ../thespis_derive, optional: true }
 

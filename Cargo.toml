@@ -7,9 +7,9 @@ status = "actively-developed"
 repository = "thespis-rs/thespis_iface"
 
 [dependencies]
-[dependencies.futures-preview]
+[dependencies.futures]
 default-features = false
-version = "^0.3.0-alpha"
+version = "^0.3"
 
 [dependencies.thespis_derive]
 optional = true
@@ -19,7 +19,7 @@ path = "../thespis_derive"
 default = ["std", "derive"]
 derive = ["thespis_derive"]
 external_doc = []
-std = ["futures-preview/std"]
+std = ["futures/std"]
 
 [package]
 authors = ["Naja Melan <najamelan@autistici.org>"]
