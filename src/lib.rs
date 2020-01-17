@@ -28,9 +28,9 @@ mod actor     ;
 mod address   ;
 mod envelope  ;
 mod handler   ;
+mod identify  ;
 mod mailbox   ;
 mod message   ;
-mod recipient ;
 
 pub use
 {
@@ -38,13 +38,13 @@ pub use
 	address   :: * ,
 	envelope  :: * ,
 	handler   :: * ,
+	identify  :: * ,
 	mailbox   :: * ,
 	message   :: * ,
-	recipient :: * ,
 };
 
 
-// recipient.send now requires futures::sink::SinkExt.
+// address.send now requires futures::sink::SinkExt.
 // let's publicly re-export that.
 //
 pub use futures::sink::{ Sink, SinkExt };
@@ -54,7 +54,7 @@ pub use futures::sink::{ Sink, SinkExt };
 
 
 use std::{ pin::Pin, future::Future, any::Any };
-//
+
 /// A boxed future that is `Send`, shorthand for async trait method return types.
 //
 pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
@@ -68,16 +68,16 @@ pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a >>;
 //
 pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send >;
 
-/// Shorthand for a boxed [`Recipient`] that is Send and Sync.
+/// Shorthand for a boxed [`Address`] that is Send and Sync.
 //
-pub type BoxRecipient<M, E> = Box< dyn Recipient<M, Error=E> + Send + Sync + Unpin >;
+pub type BoxAddress<M, E> = Box< dyn Address<M, Error=E> + Send + Sync + Unpin >;
 
 
 mod import
 {
 	pub(crate) use
 	{
-		std       :: { fmt		         } ,
+		std       :: { fmt, sync::Arc    } ,
 		futures   :: { future::FutureExt } ,
 	};
 }
