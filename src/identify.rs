@@ -15,3 +15,10 @@ pub trait Identify
 	fn name( &self ) -> Option< Arc<str> >;
 }
 
+
+impl<T> Identify for Box<T> where T: Identify
+{
+	fn id( &self ) -> usize { (**self).id() }
+
+	fn name( &self ) -> Option< Arc<str> > { (**self).name() }
+}
