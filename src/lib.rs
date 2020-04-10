@@ -57,7 +57,7 @@ use std::{ pin::Pin, future::Future, any::Any };
 
 /// A boxed future that is `Send`, shorthand for async trait method return types.
 //
-pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
+pub type Return<'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
 
 /// A boxed future that is not `Send`, shorthand for async trait method return types.
 //

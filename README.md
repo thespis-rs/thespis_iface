@@ -4,6 +4,7 @@ The interface of the thespis actor model (contains only traits).
 
 ## TODO:
 
+- test implementing async traits on Self with lifetime, eg. types that are not 'static.
 - fix clone on recipient like so: https://stackoverflow.com/revisions/30353928/3
 - oblige all implementors of all traits to implement Debug?
 - go over actix features and see what would be useful to have (backpressure?)

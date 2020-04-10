@@ -11,7 +11,9 @@ pub trait Handler< M: Message > where Self: Actor
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn handle( &mut self, msg: M ) -> Return< '_, <M as Message>::Return >;
+	fn handle<'a, 'b>( &'a mut self, msg: M ) -> Return< 'b, <M as Message>::Return >
+
+		where 'a: 'b, Self: 'b;
 
 
 
@@ -22,7 +24,10 @@ pub trait Handler< M: Message > where Self: Actor
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
-	fn handle_local( &mut self, msg: M ) -> ReturnNoSend< '_, <M as Message>::Return >
+	fn handle_local<'a, 'b>( &'a mut self, msg: M ) -> ReturnNoSend< 'b, <M as Message>::Return >
+
+		where 'a: 'b, Self: 'b
+
 	{
 		self.handle( msg )
 	}

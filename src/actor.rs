@@ -9,11 +9,15 @@ pub trait Actor: 'static
 	/// Gets called just before the mailbox starts listening for incoming messages.
 	/// You can do this to do setup for your actor.
 	//
-	fn started ( &mut self ) -> Return<'_, ()> { async {}.boxed() }
+	fn started<'a, 'b>( &'a mut self ) -> Return<'b, ()> where 'a: 'b, Self: 'b
+
+	{ async {}.boxed() }
 
 	/// Gets called just after the mailbox stops listening for messages.
 	/// You can use this to do cleanup.
 	//
-	fn stopped ( &mut self ) -> Return<'_, ()> { async {}.boxed() }
+	fn stopped<'a, 'b>( &mut self ) -> Return<'_, ()> where 'a: 'b, Self: 'b
+
+	{ async {}.boxed() }
 }
 
