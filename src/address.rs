@@ -16,9 +16,9 @@ use crate :: { *, import::* };
 //
 pub trait Address<M>: AsAddress<M> + Identify
 
-	where  Self: Sink<M> + Any + fmt::Debug + Unpin + Send                        ,
-			 <Self as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
-	       M   : Message                                                          ,
+	where  Self: Sink<M> + Any + fmt::Debug + Unpin + Send                                  ,
+			 <Self as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug + 'static ,
+	       M   : Message                                                                    ,
 
 {
 	/// Call an actor and receive the result of the call. This is a two-way operation. Calling with

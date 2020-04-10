@@ -1,5 +1,6 @@
 use crate :: { * };
 
+// TODO: is this an implementation detail of thespis_impl?
 
 /// Wrapper for a message that is generic over actor instead of over message type.
 ///
