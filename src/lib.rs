@@ -26,7 +26,6 @@
 
 mod actor     ;
 mod address   ;
-mod envelope  ;
 mod handler   ;
 mod identify  ;
 mod mailbox   ;
@@ -36,7 +35,6 @@ pub use
 {
 	actor     :: * ,
 	address   :: * ,
-	envelope  :: * ,
 	handler   :: * ,
 	identify  :: * ,
 	mailbox   :: * ,
@@ -63,10 +61,6 @@ pub type Return<'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
 //
 pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a >>;
 
-
-/// Shorthand for a `Send` boxed envelope.
-//
-pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send >;
 
 /// Shorthand for a boxed [`Address`] that is Send and Sync.
 //
