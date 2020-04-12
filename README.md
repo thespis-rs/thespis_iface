@@ -4,16 +4,13 @@ The interface of the thespis actor model (contains only traits).
 
 ## TODO:
 
+- check mut requirements. we require mut in alot of places, like when sending on an address the address has to be mut. Should we relieve certain of those. It means for example that a struct which holds an addr must also be mut or put it in Refcell just to send messages.
+- impl traits on Box, Rc, Arc, &, &mut, etc
+
 - repair all tests and code on thespis_remote, wasm stuff, verify BoxAddress without Sync is ok, ...
 
-- test the clone on box, eg. we don't put the 'static bound? and implement on other traits?
-  fix clone on recipient like so: https://stackoverflow.com/revisions/30353928/3
-
-- create proc macro to relieve boiler plate in async trait implementors
 - example and tests for processing messages concurrently when the future of handle doesn't need to access state.
-- check mut requirements. we require mut in alot of places, like when sending on an address the address has to be mut. Should we relieve certain of those. It means for example that a struct which holds an addr must also be mut or put it in Refcell just to send messages.
 - go over actix features and see what would be useful to have, and at least list the things we don't have.
-- think about and write up the difference in Send + reply_to and Call. Performance, possiblity to pass on reply_to, link the outgoing send to the incoming response? Possibility to send a reply_to address that is not your own?
 - impl Sink for references? &'a Addr<A>
 - polish async_chanx
 - make pharos generic over channels, checkout broadcast channels.
@@ -27,12 +24,16 @@ The interface of the thespis actor model (contains only traits).
 
 ## Guide level docs
 
+- think about and write up the difference in Send + reply_to and Call. Performance, possiblity to pass on reply_to, link the outgoing send to the incoming response? Possibility to send a reply_to address that is not your own?
+
+
 ### Design patterns
 - how can you stop a mailbox before all adresses are dropped?
 - how can an actor stop it's own mailbox
 - how can an actor send messages to itself
 - concurrent message processing
 - concurrent message processing with update self (without actorfuture)
+- interfaces: take an address to an actor that implements Handler<X> + Handler<Y> + ...
 
 
 ## Blocked

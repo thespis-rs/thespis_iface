@@ -48,7 +48,7 @@ pub use
 pub use futures::sink::{ Sink, SinkExt };
 
 
-#[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor };
+#[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor, async_fn, async_fn_nosend };
 
 
 use std::{ pin::Pin, future::Future, any::Any };
