@@ -62,16 +62,16 @@ pub type Return<'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
 pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a >>;
 
 
-/// Shorthand for a boxed [`Address`] that is Send and Sync.
+/// Shorthand for a boxed [`Address`] that is Send.
 //
-pub type BoxAddress<M, E> = Box< dyn Address<M, Error=E> + Send + Sync + Unpin >;
+pub type BoxAddress<'a, M, E> = Box< dyn Address<M, Error=E> + Send + Unpin + 'a >;
 
 
 mod import
 {
 	pub(crate) use
 	{
-		std       :: { fmt, sync::Arc    } ,
+		std       :: { sync::Arc, fmt    } ,
 		futures   :: { future::FutureExt } ,
 	};
 }

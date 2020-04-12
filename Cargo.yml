@@ -48,6 +48,8 @@ features:
 
 dependencies:
 
+  # TODO: individual futures crates.
+  #
   futures        : { version: ^0.3, default-features: false }
   thespis_derive : { path: ../thespis_derive, optional: true }
 
