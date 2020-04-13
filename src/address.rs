@@ -36,7 +36,7 @@ pub trait Address<M>: AsAddress<M> + Identify
 
 	/// Get a clone of this address as a `Box<Address<M>>`.
 	//
-	fn clone_box<'a>( &self ) -> BoxAddress<'a, M, <Self as Sink<M> >::Error> where Self: 'a;
+	fn clone_box( &self ) -> BoxAddress<M, <Self as Sink<M> >::Error>;
 }
 
 
@@ -85,7 +85,7 @@ impl<M, T> Address<M> for Box<T>
 
 	/// Get a clone of this address as a `Box<Address<M>>`.
 	//
-	fn clone_box<'a>( &self ) -> BoxAddress<'a, M, <T as Sink<M> >::Error>
+	fn clone_box( &self ) -> BoxAddress<M, <T as Sink<M> >::Error>
 	{
 		(**self).clone_box()
 	}
