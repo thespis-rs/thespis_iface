@@ -4,12 +4,17 @@ The interface of the thespis actor model (contains only traits).
 
 ## TODO:
 
+- remove Mailbox trait?
+
+- derive
+  - Message
+  - #[ thespis::Handler( MyActor, Show ) ] async fn ...
+
+- tests for processing messages concurrently when the future of handle doesn't need to access state.
+
 - check mut requirements. we require mut in alot of places, like when sending on an address the address has to be mut. Should we relieve certain of those. It means for example that a struct which holds an addr must also be mut or put it in Refcell just to send messages.
 - impl traits on Box, Rc, Arc, &, &mut, etc
 
-- repair all tests and code on thespis_remote, wasm stuff, verify BoxAddress without Sync is ok, ...
-
-- example and tests for processing messages concurrently when the future of handle doesn't need to access state.
 - go over actix features and see what would be useful to have, and at least list the things we don't have.
 - impl Sink for references? &'a Addr<A>
 - polish async_chanx
