@@ -62,7 +62,7 @@ pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a >>;
 
 /// Shorthand for a boxed [`Address`] that is Send.
 //
-pub type BoxAddress<M, E> = Box< dyn Address<M, Error=E> + Send + Sync + Unpin + >;
+pub type BoxAddress<M, E> = Box< dyn Address<M, Error=E> + Send + Unpin >;
 
 
 mod import
