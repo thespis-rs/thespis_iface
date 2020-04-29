@@ -24,11 +24,6 @@ pub trait Address<M>: AsAddress<M> + Identify
 	/// Call an actor and receive the result of the call. This is a two-way operation. Calling with
 	/// a message type that has `Return=()` will notify you that the message has been handled by the
 	/// receiver.
-	///
-	/// This is the equivalent of a method call in the actor model. The overhead in a single thread
-	/// is about x40 compared to a method call. It is x3 compared to a [send].
-	///
-	/// TODO: put some actual benchmark results.
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
@@ -67,6 +62,7 @@ where  T: Address<M> + Sink<M> + Any + fmt::Debug + Unpin + Send           ,
 {
 	fn as_address( &self ) -> &dyn Address<M, Error = <Self as Sink<M> >::Error> { self }
 }
+
 
 
 impl<M, T> Address<M> for Box<T>

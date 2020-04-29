@@ -28,7 +28,6 @@ mod actor     ;
 mod address   ;
 mod handler   ;
 mod identify  ;
-mod mailbox   ;
 mod message   ;
 
 pub use
@@ -37,7 +36,6 @@ pub use
 	address   :: * ,
 	handler   :: * ,
 	identify  :: * ,
-	mailbox   :: * ,
 	message   :: * ,
 };
 

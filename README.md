@@ -4,13 +4,12 @@ The interface of the thespis actor model (contains only traits).
 
 ## TODO:
 
-- remove Mailbox trait?
+- benchmark the difference if Address would have poll_call instead of call and an extension trait that returns a future Call, like the futures lib does.
+  inspired by https://github.com/Freax13/async-trait-ext
 
 - derive
   - Message
   - #[ thespis::Handler( MyActor, Show ) ] async fn ...
-
-- tests for processing messages concurrently when the future of handle doesn't need to access state.
 
 - check mut requirements. we require mut in alot of places, like when sending on an address the address has to be mut. Should we relieve certain of those. It means for example that a struct which holds an addr must also be mut or put it in Refcell just to send messages.
 - impl traits on Box, Rc, Arc, &, &mut, etc
@@ -22,7 +21,6 @@ The interface of the thespis actor model (contains only traits).
 - enable CI testing
 - enable dependabot
 - write docs and guide
-- currently spawned tasks swallow panics... We should do something about that. Verify, I think it's only when remote handle gets dropped
 - try to relax pinning requirements where we can and impl unpin for things like addr to avoid
   forwarding pinning requirements to Actor.
 - check TODO's and FIXME's in code
