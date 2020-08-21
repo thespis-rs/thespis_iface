@@ -40,10 +40,10 @@ pub use
 };
 
 
-// address.send now requires futures::sink::SinkExt.
+// address.send requires futures::sink::SinkExt.
 // let's publicly re-export that.
 //
-pub use futures::sink::{ Sink, SinkExt };
+pub use futures_sink::{ Sink };
 
 
 #[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor, async_fn, async_fn_nosend };
@@ -69,8 +69,7 @@ mod import
 {
 	pub(crate) use
 	{
-		std       :: { sync::Arc, fmt    } ,
-		futures   :: { future::FutureExt } ,
+		std :: { sync::Arc, fmt } ,
 	};
 }
 

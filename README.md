@@ -4,6 +4,13 @@ The interface of the thespis actor model (contains only traits).
 
 ## TODO:
 
+- !Send Messages.
+
+- performance:
+  - channel impls
+  - thread sync
+  - heap allocations
+
 - benchmark the difference if Address would have poll_call instead of call and an extension trait that returns a future Call, like the futures lib does.
   inspired by https://github.com/Freax13/async-trait-ext
 

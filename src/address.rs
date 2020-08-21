@@ -67,8 +67,8 @@ where  T: Address<M> + Sink<M> + Any + fmt::Debug + Unpin + Send           ,
 
 impl<M, T> Address<M> for Box<T>
 
-	where  M   : Message    ,
-	       T   : Address<M> + Identify,
+	where  M: Message    ,
+	       T: Address<M> + Identify,
 	       T: Sink<M> + Any + fmt::Debug + Unpin + Send                        ,
 	      <T as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
 {
