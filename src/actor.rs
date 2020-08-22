@@ -7,7 +7,7 @@ use crate :: { Return };
 pub trait Actor: 'static
 {
 	/// Gets called just before the mailbox starts listening for incoming messages.
-	/// You can do this to do setup for your actor.
+	/// You can use this to do setup for your actor.
 	//
 	fn started ( &mut self ) -> Return<'_, ()> { Box::pin( async {} ) }
 

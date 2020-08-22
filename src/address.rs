@@ -7,7 +7,7 @@ use crate :: { *, import::* };
 ///
 /// Send a message without wanting a return from the actor. This is a one-way operation.
 /// This still returns a future because the mailbox might be async, so delivering the
-/// message might be async, but this will resolve as soon as the message is sent to the mailbox.
+/// message might be async, but this will resolve as soon as the message is delivered to the mailbox.
 /// You will not get notified when the message is handled by receiver.
 ///
 /// This returns result because sending to the mailbox might be a fallible action.
@@ -24,6 +24,9 @@ pub trait Address<M>: AsAddress<M> + Identify
 	/// Call an actor and receive the result of the call. This is a two-way operation. Calling with
 	/// a message type that has `Return=()` will notify you that the message has been handled by the
 	/// receiver.
+	///
+	/// Note that all types implementing `Address` also implement Sink if you want to throw a message
+	/// in a bottle. See the trait documentation for more information on the `send` method.
 	//
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
