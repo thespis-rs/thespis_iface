@@ -33,7 +33,7 @@ license = "Unlicense"
 name = "thespis"
 readme = "README.md"
 repository = "https://github.com/thespis-rs/thespis_iface"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 
 [package.metadata]
 [package.metadata.docs]
