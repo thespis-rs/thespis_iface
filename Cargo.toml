@@ -6,6 +6,9 @@ status = "actively-developed"
 [badges.travis-ci]
 repository = "thespis-rs/thespis_iface"
 
+[build-dependencies]
+rustc_version = "^0.2"
+
 [dependencies]
 [dependencies.futures-sink]
 default-features = false

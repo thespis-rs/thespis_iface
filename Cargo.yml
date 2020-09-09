@@ -64,3 +64,8 @@ dependencies:
   futures-sink   : { version: ^0.3, features: [std], default-features: false }
   thespis_derive : { path: ../thespis_derive, optional: true }
 
+
+build-dependencies:
+
+  rustc_version: ^0.2
+

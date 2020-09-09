@@ -1,7 +1,6 @@
-// See: https://github.com/rust-lang/rust/issues/44732#issuecomment-488766871
-//!
-#![ cfg_attr( feature = "external_doc", feature(external_doc)         ) ]
-#![ cfg_attr( feature = "external_doc", doc(include = "../README.md") ) ]
+#![ cfg_attr( nightly, feature( external_doc             ) ) ]
+#![ cfg_attr( nightly, doc    ( include = "../README.md" ) ) ]
+#![ doc = "" ] // empty doc line to handle missing doc warning when the feature is missing.
 //
 #![ doc    ( html_root_url = "https://docs.rs/thespis" ) ]
 #![ deny   ( missing_docs                              ) ]
@@ -46,7 +45,7 @@ pub use
 pub use futures_sink::{ Sink };
 
 
-#[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor, async_fn, async_fn_nosend };
+#[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor, async_fn, async_fn_local };
 
 
 use std::{ pin::Pin, future::Future, any::Any };
