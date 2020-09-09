@@ -8,11 +8,14 @@ use crate :: { *, import::* };
 /// Send a message without wanting a return from the actor. This is a one-way operation.
 /// This still returns a future because the mailbox might be async, so delivering the
 /// message might be async, but this will resolve as soon as the message is delivered to the mailbox.
-/// You will not get notified when the message is handled by receiver.
+/// You will not get notified when the message is handled by receiving actor.
 ///
 /// This returns result because sending to the mailbox might be a fallible action.
 /// If any errors happen after the message is sent to the mailbox, you shall not be notified.
 /// There shall be no acknowledgement of reception.
+///
+/// The call method provides a request-response pattern. You can also use it when the actor
+/// returns `()` to be notified that the message has been processed.
 //
 pub trait Address<M>: AsAddress<M> + Identify
 
@@ -52,7 +55,10 @@ where  Self: Sink<M> + Any + fmt::Debug + Unpin + Send                        ,
 	/// Upcast `&self` to `&dyn Address`.
 	//
 	fn as_address( &self ) -> &dyn Address<M, Error = <Self as Sink<M> >::Error>;
-	// fn as_box_address( self:  ) -> Box<dyn Address<M, Error = <Self as Sink<M> >::Error>>;
+
+	/// Consume self and put it on the heap.
+	//
+	fn as_box_address( self ) -> Box<dyn Address<M, Error = <Self as Sink<M> >::Error>>;
 }
 
 
@@ -64,6 +70,8 @@ where  T: Address<M> + Sink<M> + Any + fmt::Debug + Unpin + Send           ,
 
 {
 	fn as_address( &self ) -> &dyn Address<M, Error = <Self as Sink<M> >::Error> { self }
+
+	fn as_box_address( self ) -> Box<dyn Address<M, Error = <Self as Sink<M> >::Error>> { Box::new( self ) }
 }
 
 

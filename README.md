@@ -52,30 +52,24 @@ In Cargo.toml:
 
 ### Upgrade
 
-Please check out the [changelog](https://github.com/najamelan/thespis/blob/master/CHANGELOG.md) when upgrading.
+Please check out the [changelog](https://github.com/thespis-rs/thespis/blob/master/CHANGELOG.md) when upgrading.
 
 
 ### Dependencies
 
-This crate has few dependencies. Cargo will automatically handle it's dependencies for you.
+This crate has few dependencies. Cargo will automatically handle it's dependencies for you. Check `Cargo.yml` for the list of dependencies.
 
-There are no optional features.
+There is one optional feature, `derive`, enabled by default which adds proc macros for deriving the `Message` trait as well as removing the boilerplate for implementing `Handler`.
 
 
 ### Security
 
-
+This crate does not use unsafe, but it's dependencies do.
 
 
 ## Usage
 
-
-
-### Basic example
-
-```rust
-
-```
+Please refer to the _thespis_impl_ crate to see examples of usage. There is also a [guide level documentation](https://thespis-rs.github.io/thespis_guide/).
 
 ## API
 
@@ -84,11 +78,12 @@ API documentation can be found on [docs.rs](https://docs.rs/thespis).
 
 ## Contributing
 
-Please check out the [contribution guidelines](https://github.com/najamelan/thespis/blob/master/CONTRIBUTING.md).
+Please check out the [contribution guidelines](https://github.com/thespis-rs/thespis/blob/master/CONTRIBUTING.md).
 
 
 ### Testing
 
+As this crate only provides traits, there isn't any tests. You can check the _thespis_impl_ crate for the tests.
 
 ### Code of conduct
 
@@ -97,51 +92,3 @@ Any of the behaviors described in [point 4 "Unacceptable Behavior" of the Citize
 ## License
 
 [Unlicence](https://unlicense.org/)
-
-
-
-
-## TODO:
-
-- !Send Messages.
-
-- performance:
-  - channel impls
-  - thread sync
-  - heap allocations
-
-- benchmark the difference if Address would have poll_call instead of call and an extension trait that returns a future Call, like the futures lib does.
-  inspired by https://github.com/Freax13/async-trait-ext
-
-
-
-- check mut requirements. we require mut in alot of places, like when sending on an address the address has to be mut. Should we relieve certain of those. It means for example that a struct which holds an addr must also be mut or put it in Refcell just to send messages.
-- impl traits on Box, Rc, Arc, &/&mut, etc
-
-- go over actix features and see what would be useful to have, and at least list the things we don't have.
-- impl Sink for references? &'a Addr<A>
-- polish async_chanx
-- make pharos generic over channels, checkout broadcast channels.
-- enable CI testing
-- enable dependabot
-- write docs and guide
-- try to relax pinning requirements where we can and impl unpin for things like addr to avoid
-  forwarding pinning requirements to Actor.
-- check TODO's and FIXME's in code
-
-
-
-
-## Blocked
-
-- defaults for associated types, like () for Message::Return, and possibility to derive with defaults
-  blocked on stabilization of defaults for associated types.
-
-- on generic impls, tag methods as default, so that users can override them for specific types.
-  blocked on stabilization of specialization.
-
-
-## Design issues:
-
-- Address is capability. Currently we work on "in process" stuff (the programmer compiling is deemed responsible for the outcome), so not much security considerations are in place. And we work on cross process communication where we consider an all public interface. A process provides services, and if it accepts a connection, it specifies which services will respond on that connection, but it's not more fine grained than that ATM. Eg. We have not implemented any authentication/authorization/encryption/signing.
-Consider how you make something available to some entity that is authorized only.

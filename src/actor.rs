@@ -1,8 +1,11 @@
 use crate :: { Return };
 
 
-/// An actor is an isolated computing unit. For an introduction to the actor model, see:
-/// - https://youtu.be/7erJ1DV_Tlo
+/// An actor is an isolated computing unit that runs concurrently to other actors.
+/// You must implement this trait as well as [`Handler`](crate::Handler) to accept messages.
+///
+/// The struct that implements this usually contains the (mutable) state that only this
+/// actor can directly access.
 //
 pub trait Actor: 'static
 {
