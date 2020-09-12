@@ -17,7 +17,7 @@ version = "^0.3"
 
 [dependencies.thespis_derive]
 optional = true
-path = "../thespis_derive"
+version = "0.1.0-alpha"
 
 [features]
 default = ["derive"]

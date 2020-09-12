@@ -14,8 +14,8 @@
 - go over actix features and see what would be useful to have, and at least list the things we don't have.
 - polish async_chanx
 - write docs and guide
-- check TODO's and FIXME's in code
 
+- Actor should also require AssertUnwindSafe, but currently types from other libraries that use things like `UnsafeCell<Option<AtomicUsize>>`, like tokio channels will not implement that even if they probably should, which makes it to much of a hassle right now. Opened one issue at futures: https://github.com/rust-lang/futures-rs/issues/2211.
 
 
 

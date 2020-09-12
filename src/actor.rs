@@ -6,6 +6,11 @@ use crate :: { Return };
 ///
 /// The struct that implements this usually contains the (mutable) state that only this
 /// actor can directly access.
+///
+/// Mailbox implementations can decide to `catch_unwind` when your actor handles a message
+/// to keep the mailbox alive if the actor panics and make it possible to supervise actors.
+/// For this reason your actor should be [`std::panic::UnwindSafe`]. This might become a
+/// required trait bound in the future.
 //
 pub trait Actor: 'static
 {

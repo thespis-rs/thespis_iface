@@ -18,6 +18,8 @@ The purpose for the split between interface and implementation is 2-fold:
 
 The reference implementation can be found in the `thespis_impl` crate.
 
+Please check out the [guide level documentation](https://thespis-rs.github.io/thespis_guide/).
+
 ## Table of Contents
 
 - [Install](#install)
@@ -69,7 +71,7 @@ This crate does not use unsafe, but it's dependencies do.
 
 ## Usage
 
-Please refer to the _thespis_impl_ crate to see examples of usage. There is also a [guide level documentation](https://thespis-rs.github.io/thespis_guide/).
+Please refer to the _thespis_impl_ crate to see examples of usage.
 
 ## API
 
