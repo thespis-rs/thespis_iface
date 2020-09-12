@@ -2,15 +2,29 @@ package:
 
   # When releasing to crates.io:
   #
+  # - last check for all TODO, FIXME, expect, unwrap.
+  # - recheck log statements (informative, none left that were just for development, ...)
+  # - `cargo +nightly doc` and re-read and final polish of documentation.
+  #
   # - Update CHANGELOG.md.
   # - Update version numbers in Cargo.yml, Cargo.toml, install section of readme.
-  # - verify CI result
-  # - test dependent crates
-  # - cargo publish
-  # - merge dev branch into master
-  # - create git tag
   #
-  version       : 0.1.0
+  # - `touch **.rs && cargo clippy --tests --examples --benches --all-features`
+  # - `cargo update`
+  # - `cargo udeps --all-targets --all-features`
+  # - `cargo audit`
+  # - `cargo crev crate verify --show-all --recursive` and review.
+  # - 'cargo test --all-targets --all-features'
+  #
+  # - push dev and verify CI result
+  # - `cargo test` on dependent crates
+  #
+  # - cargo publish
+  # - `git checkout master && git merge dev --no-ff`
+  # - `git tag x.x.x` with version number.
+  # - `git push && git push --tags`
+  #
+  version       : 0.1.0-alpha.1
   name          : thespis
   edition       : '2018'
   authors       : [ Naja Melan <najamelan@autistici.org> ]
@@ -37,9 +51,8 @@ badges:
 
 features:
 
-  default: [ std, derive ]
-  std    : [ futures/std ]
-  derive : [ thespis_derive      ]
+  default: [ derive ]
+  derive : [ thespis_derive ]
 
   # only used internally, don't use
   #
@@ -48,6 +61,11 @@ features:
 
 dependencies:
 
-  futures        : { version: ^0.3, default-features: false }
-  thespis_derive : { path: ../thespis_derive, optional: true }
+  futures-sink   : { version: ^0.3, features: [std], default-features: false }
+  thespis_derive : { version: 0.1.0-alpha, optional: true }
+
+
+build-dependencies:
+
+  rustc_version: ^0.2
 

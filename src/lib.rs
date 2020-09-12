@@ -1,7 +1,6 @@
-// See: https://github.com/rust-lang/rust/issues/44732#issuecomment-488766871
-//!
-#![ cfg_attr( feature = "external_doc", feature(external_doc)         ) ]
-#![ cfg_attr( feature = "external_doc", doc(include = "../README.md") ) ]
+#![ cfg_attr( nightly, feature( external_doc             ) ) ]
+#![ cfg_attr( nightly, doc    ( include = "../README.md" ) ) ]
+#![ doc = "" ] // empty doc line to handle missing doc warning when the feature is missing.
 //
 #![ doc    ( html_root_url = "https://docs.rs/thespis" ) ]
 #![ deny   ( missing_docs                              ) ]
@@ -26,59 +25,50 @@
 
 mod actor     ;
 mod address   ;
-mod envelope  ;
 mod handler   ;
 mod identify  ;
-mod mailbox   ;
 mod message   ;
 
 pub use
 {
 	actor     :: * ,
 	address   :: * ,
-	envelope  :: * ,
 	handler   :: * ,
 	identify  :: * ,
-	mailbox   :: * ,
 	message   :: * ,
 };
 
 
-// address.send now requires futures::sink::SinkExt.
+// address.send requires futures::sink::SinkExt.
 // let's publicly re-export that.
 //
-pub use futures::sink::{ Sink, SinkExt };
+pub use futures_sink::{ Sink };
 
 
-#[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor };
+#[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor, async_fn, async_fn_local };
 
 
 use std::{ pin::Pin, future::Future, any::Any };
 
 /// A boxed future that is `Send`, shorthand for async trait method return types.
 //
-pub type Return      <'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
+pub type Return<'a, R> = Pin<Box< dyn Future<Output = R> + 'a + Send >>;
 
 /// A boxed future that is not `Send`, shorthand for async trait method return types.
 //
 pub type ReturnNoSend<'a, R> = Pin<Box< dyn Future<Output = R> + 'a >>;
 
 
-/// Shorthand for a `Send` boxed envelope.
+/// Shorthand for a boxed [`Address`] that is Send.
 //
-pub type BoxEnvelope <A> = Box< dyn Envelope<A>  + Send >;
-
-/// Shorthand for a boxed [`Address`] that is Send and Sync.
-//
-pub type BoxAddress<M, E> = Box< dyn Address<M, Error=E> + Send + Sync + Unpin >;
+pub type BoxAddress<M, E> = Box< dyn Address<M, Error=E> + Send + Unpin >;
 
 
 mod import
 {
 	pub(crate) use
 	{
-		std       :: { fmt, sync::Arc    } ,
-		futures   :: { future::FutureExt } ,
+		std :: { sync::Arc, fmt } ,
 	};
 }
 

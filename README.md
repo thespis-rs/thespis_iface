@@ -1,43 +1,96 @@
-# thespis_iface
-The interface of the thespis actor model (contains only traits).
+# thespis
+
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![Build Status](https://api.travis-ci.org/najamelan/thespis.svg?branch=master)](https://travis-ci.org/najamelan/thespis)
+[![Docs](https://docs.rs/thespis/badge.svg)](https://docs.rs/thespis)
+[![crates.io](https://img.shields.io/crates/v/thespis.svg)](https://crates.io/crates/thespis)
 
 
-## TODO:
+> Interface of the thespis actor model.
 
-- fix clone on recipient like so: https://stackoverflow.com/revisions/30353928/3
-- oblige all implementors of all traits to implement Debug?
-- go over actix features and see what would be useful to have (backpressure?)
-- defaults for associated types, like () for Message::Return, and possibility to derive with defaults
-- how can an actor stop itself, should mb be fed to handle, should there be a method self.mb, should there be a stop method on mailbox
-- do some proper research on tokio reactor. Just figured out we don't need a tokio runtime to use stuff that uses epoll. A futures 0.3 executor will do just fine, just using compat on the futures and streams from tokio.
-- on generic impls, tag methods as default, so that users can override them for specific types.
-- check mut requirements. we require mut in alot of places, like when sending on an address the address has to be mut. Should we relieve certain of those. It means for example that a struct which holds an addr must also be mut or put it in Refcell just to send messages.
-- think about and write up the difference in Send + reply_to and Call. Performance, possiblity to pass on reply_to, link the outgoing send to the incoming response? Possibility to send a reply_to address that is not your own?
-- enable CI testing
-- enable dependabot
-- code coverage?
-- impl Sink for references? &'a Addr<A>
-- currently spawned tasks swallow panics... We should do something about that. Verify, I think it's only when remote handle gets dropped
-- try to relax pinning requirements where we can and impl unpin for things like addr to avoid
-  forwarding pinning requirements to Actor.
-- check TODO's and FIXME's in code
+The interface of the thespis actor model (contains only traits). This defines the expected behavior for Addresses that can send to Actors, as well as the `Handler` trait and the `Message` trait.
 
+There used to be a `Mailbox` trait, but it turns out that the mailbox is not depended on by any of the other components, so it's iplementation can be freely changed without requiring an interface.
 
-## Design issues:
+The purpose for the split between interface and implementation is 2-fold:
+1. Libraries can expose an actor based interface without having to depend on an implementation. Consumers can then choose any implementation they want and everything will remain inter-operable.
+2. Each component can be individually replaced and composed if you need a different behavior then the reference implementation.
 
-- The wire format is a hand baked solution just to get it working. Now we should find out what the final formats might look like. Cap'n proto? or SBE? : https://polysync.io/blog/session-types-for-hearty-codecs
+The reference implementation can be found in the `thespis_impl` crate.
 
-- notion of "one message at a time". This is only necessary if the actor has mutable state. If the actor works without mutable state, it can be run in parallel. In thespis there is currently no way to create this optimization. In actix this is represented by sync actors, where you spawn several of them on different threads and then have one address for the lot. It would be nice if we could have like a mailbox type which shall give you only an immutable reference to self, and now it will process messages in parallel. This will however require a different Handler trait, and that's not very elegant.
+Please check out the [guide level documentation](https://thespis-rs.github.io/thespis_guide/).
 
-- Address is capability. Currently we work on "in process" stuff (the programmer compiling is deemed responsible for the outcome), so not much security considerations are in place. And we work on cross process communication where we consider an all public interface. A process provides services, and if it accepts a connection, it specifies which services will respond on that connection, but it's not more fine grained than that ATM. Eg. We have not implemented any authentication/authorization/encryption/signing.
-Consider how you make something available to some entity that is authorized only.
+## Table of Contents
 
-- Two big axises are difficult to implement DRY:
-  - Send vs !Send messages, see: https://users.rust-lang.org/t/how-do-you-all-make-your-dynamic-code-send-agnostic/27567/5
-  - mut vs not mut actor: would allow processing messages in parallel, but needs a different Handler trait, and Handler trait is used throughout as trait bound A: Handler<M>. In that light, actix solved this reasonably well I suppose.
-
-- our generic story does not work for remote services right now. Both service map and Peer cannot really
-  handle other types. We should work on that and test it. The service_map macro has hardoded references to ServiceID, Peer and needs to create Multiservice to send errors back to the remote.
+- [Install](#install)
+   - [Upgrade](#upgrade)
+   - [Dependencies](#dependencies)
+   - [Security](#security)
+- [Usage](#usage)
+   - [Basic Example](#basic-example)
+   - [API](#api)
+- [Contributing](#contributing)
+   - [Code of Conduct](#code-of-conduct)
+- [License](#license)
 
 
+## Install
+With [cargo add](https://github.com/killercup/cargo-edit):
+`cargo add thespis`
 
+With [cargo yaml](https://gitlab.com/storedbox/cargo-yaml):
+```yaml
+dependencies:
+
+   thespis: ^0.1-alpha
+```
+
+In Cargo.toml:
+```toml
+[dependencies]
+
+   thespis = "0.1-alpha"
+```
+
+### Upgrade
+
+Please check out the [changelog](https://github.com/thespis-rs/thespis/blob/master/CHANGELOG.md) when upgrading.
+
+
+### Dependencies
+
+This crate has few dependencies. Cargo will automatically handle it's dependencies for you. Check `Cargo.yml` for the list of dependencies.
+
+There is one optional feature, `derive`, enabled by default which adds proc macros for deriving the `Message` trait as well as removing the boilerplate for implementing `Handler`.
+
+
+### Security
+
+This crate does not use unsafe, but it's dependencies do.
+
+
+## Usage
+
+Please refer to the _thespis_impl_ crate to see examples of usage.
+
+## API
+
+API documentation can be found on [docs.rs](https://docs.rs/thespis).
+
+
+## Contributing
+
+Please check out the [contribution guidelines](https://github.com/thespis-rs/thespis/blob/master/CONTRIBUTING.md).
+
+
+### Testing
+
+As this crate only provides traits, there isn't any tests. You can check the _thespis_impl_ crate for the tests.
+
+### Code of conduct
+
+Any of the behaviors described in [point 4 "Unacceptable Behavior" of the Citizens Code of Conduct](https://github.com/stumpsyn/policies/blob/master/citizen_code_of_conduct.md#4-unacceptable-behavior) are not welcome here and might get you banned. If anyone, including maintainers and moderators of the project, fail to respect these/your limits, you are entitled to call them out.
+
+## License
+
+[Unlicence](https://unlicense.org/)

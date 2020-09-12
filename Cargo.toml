@@ -6,20 +6,23 @@ status = "actively-developed"
 [badges.travis-ci]
 repository = "thespis-rs/thespis_iface"
 
+[build-dependencies]
+rustc_version = "^0.2"
+
 [dependencies]
-[dependencies.futures]
+[dependencies.futures-sink]
 default-features = false
+features = ["std"]
 version = "^0.3"
 
 [dependencies.thespis_derive]
 optional = true
-path = "../thespis_derive"
+version = "0.1.0-alpha"
 
 [features]
-default = ["std", "derive"]
+default = ["derive"]
 derive = ["thespis_derive"]
 external_doc = []
-std = ["futures/std"]
 
 [package]
 authors = ["Naja Melan <najamelan@autistici.org>"]
@@ -33,7 +36,7 @@ license = "Unlicense"
 name = "thespis"
 readme = "README.md"
 repository = "https://github.com/thespis-rs/thespis_iface"
-version = "0.1.0"
+version = "0.1.0-alpha.1"
 
 [package.metadata]
 [package.metadata.docs]

@@ -1,19 +1,27 @@
-use crate :: { import::*, Return };
+use crate :: { Return };
 
 
-/// An actor is an isolated computing unit. For an introduction to the actor model, see:
-/// - https://youtu.be/7erJ1DV_Tlo
+/// An actor is an isolated computing unit that runs concurrently to other actors.
+/// You must implement this trait as well as [`Handler`](crate::Handler) to accept messages.
+///
+/// The struct that implements this usually contains the (mutable) state that only this
+/// actor can directly access.
+///
+/// Mailbox implementations can decide to `catch_unwind` when your actor handles a message
+/// to keep the mailbox alive if the actor panics and make it possible to supervise actors.
+/// For this reason your actor should be [`std::panic::UnwindSafe`]. This might become a
+/// required trait bound in the future.
 //
 pub trait Actor: 'static
 {
 	/// Gets called just before the mailbox starts listening for incoming messages.
-	/// You can do this to do setup for your actor.
+	/// You can use this to do setup for your actor.
 	//
-	fn started ( &mut self ) -> Return<'_, ()> { async {}.boxed() }
+	fn started ( &mut self ) -> Return<'_, ()> { Box::pin( async {} ) }
 
 	/// Gets called just after the mailbox stops listening for messages.
 	/// You can use this to do cleanup.
 	//
-	fn stopped ( &mut self ) -> Return<'_, ()> { async {}.boxed() }
+	fn stopped ( &mut self ) -> Return<'_, ()> { Box::pin( async {} ) }
 }
 
