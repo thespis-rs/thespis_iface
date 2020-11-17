@@ -35,7 +35,7 @@ package:
   documentation : https://docs.rs/thespis
   readme        : README.md
   keywords      : [ async, futures, actor, thespis ]
-  categories    : [ Asynchronous, Concurrency ]
+  categories    : [ asynchronous, concurrency ]
 
   metadata:
     docs:
