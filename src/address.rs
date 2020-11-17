@@ -17,11 +17,11 @@ use crate :: { *, import::* };
 /// The call method provides a request-response pattern. You can also use it when the actor
 /// returns `()` to be notified that the message has been processed.
 //
-pub trait Address<M>: AsAddress<M> + Identify
+pub trait Address<M>: AsAddress<M> + Identify + UnwindSafe
 
-	where  Self: Sink<M> + Any + fmt::Debug + Unpin + Send                                  ,
-			 <Self as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug + 'static ,
-	       M   : Message                                                                    ,
+where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                                  ,
+      M   : Message                                                                    ,
+      <Self as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug + 'static ,
 
 {
 	/// Call an actor and receive the result of the call. This is a two-way operation. Calling with
@@ -48,8 +48,8 @@ pub trait Address<M>: AsAddress<M> + Identify
 pub trait AsAddress<M>
 
 where  Self: Sink<M> + Any + fmt::Debug + Unpin + Send                        ,
-		 <Self as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
        M   : Message                                                          ,
+       <Self as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
 
 {
 	/// Upcast `&self` to `&dyn Address`.
@@ -66,7 +66,7 @@ impl<T, M> AsAddress<M> for T
 
 where  T: Address<M> + Sink<M> + Any + fmt::Debug + Unpin + Send           ,
        M: Message                                                          ,
-		 <T as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
+       <T as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
 
 {
 	fn as_address( &self ) -> &dyn Address<M, Error = <Self as Sink<M> >::Error> { self }
@@ -78,9 +78,9 @@ where  T: Address<M> + Sink<M> + Any + fmt::Debug + Unpin + Send           ,
 
 impl<M, T> Address<M> for Box<T>
 
-	where  M: Message    ,
-	       T: Address<M> + Identify,
-	       T: Sink<M> + Any + fmt::Debug + Unpin + Send                        ,
+	where  M: Message                                                         ,
+	       T: Address<M> + Identify                                           ,
+	       T: Sink<M> + Any + fmt::Debug + Unpin + Send                       ,
 	      <T as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
 {
 	#[ must_use = "Futures do nothing unless polled" ]

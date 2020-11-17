@@ -68,7 +68,7 @@ mod import
 {
 	pub(crate) use
 	{
-		std :: { sync::Arc, fmt } ,
+		std :: { sync::Arc, fmt, panic::UnwindSafe } ,
 	};
 }
 
