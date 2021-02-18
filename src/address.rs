@@ -17,7 +17,7 @@ use crate :: { *, import::* };
 /// The call method provides a request-response pattern. You can also use it when the actor
 /// returns `()` to be notified that the message has been processed.
 //
-pub trait Address<M>: AsAddress<M> + Identify + UnwindSafe
+pub trait Address<M>: AsAddress<M> + Identify
 
 where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                                  ,
       M   : Message                                                                    ,

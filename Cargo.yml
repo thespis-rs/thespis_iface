@@ -24,7 +24,7 @@ package:
   # - `git tag x.x.x` with version number.
   # - `git push && git push --tags`
   #
-  version       : 0.1.0-alpha.2
+  version       : 0.1.0-alpha.3
   name          : thespis
   edition       : '2018'
   authors       : [ Naja Melan <najamelan@autistici.org> ]
@@ -67,5 +67,5 @@ dependencies:
 
 build-dependencies:
 
-  rustc_version: ^0.2
+  rustc_version: ^0.3
 
