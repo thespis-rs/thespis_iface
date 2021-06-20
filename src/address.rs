@@ -17,11 +17,11 @@ use crate :: { *, import::* };
 /// The call method provides a request-response pattern. You can also use it when the actor
 /// returns `()` to be notified that the message has been processed.
 //
-pub trait Address<M>: AsAddress<M> + Identify
+pub trait Address<M>: Identify
 
-where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                                  ,
-      M   : Message                                                                    ,
-      <Self as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug + 'static ,
+where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                     ,
+      M   : Message                                                       ,
+      <Self as Sink<M>>::Error: std::error::Error + Send + Sync + 'static ,
 
 {
 	/// Call an actor and receive the result of the call. This is a two-way operation. Calling with
@@ -38,50 +38,24 @@ where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                           
 	/// Get a clone of this address as a `Box<Address<M>>`.
 	//
 	fn clone_box( &self ) -> BoxAddress<M, <Self as Sink<M> >::Error>;
-}
 
-
-
-/// Allows upcasting to Address if you have a `&dyn Trait` to a trait that extends it. Eg. where `trait Trait: Address<M>`.
-/// TODO: usefulness analysis... currently used nowhere.
-//
-pub trait AsAddress<M>
-
-where  Self: Sink<M> + Any + fmt::Debug + Unpin + Send                        ,
-       M   : Message                                                          ,
-       <Self as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
-
-{
 	/// Upcast `&self` to `&dyn Address`.
 	//
-	fn as_address( &self ) -> &dyn Address<M, Error = <Self as Sink<M> >::Error>;
+	fn as_address( &self ) -> &dyn Address<M, Error = <Self as Sink<M> >::Error>
 
-	/// Consume self and put it on the heap.
-	//
-	fn as_box_address( self ) -> Box<dyn Address<M, Error = <Self as Sink<M> >::Error>>;
+		where Self: Sized,
+	{
+		self
+	}
 }
-
-
-impl<T, M> AsAddress<M> for T
-
-where  T: Address<M> + Sink<M> + Any + fmt::Debug + Unpin + Send           ,
-       M: Message                                                          ,
-       <T as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
-
-{
-	fn as_address( &self ) -> &dyn Address<M, Error = <Self as Sink<M> >::Error> { self }
-
-	fn as_box_address( self ) -> Box<dyn Address<M, Error = <Self as Sink<M> >::Error>> { Box::new( self ) }
-}
-
 
 
 impl<M, T> Address<M> for Box<T>
 
-	where  M: Message                                                         ,
-	       T: Address<M> + Identify                                           ,
-	       T: Sink<M> + Any + fmt::Debug + Unpin + Send                       ,
-	      <T as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
+	where  M: Message                                            ,
+	       T: Address<M> + Identify                              ,
+	       T: Sink<M> + Any + fmt::Debug + Unpin + Send          ,
+	      <T as Sink<M>>::Error: std::error::Error + Send + Sync ,
 {
 	#[ must_use = "Futures do nothing unless polled" ]
 	//

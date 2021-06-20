@@ -4,7 +4,7 @@ package:
   #
   # - last check for all TODO, FIXME, expect, unwrap.
   # - recheck log statements (informative, none left that were just for development, ...)
-  # - `cargo +nightly doc` and re-read and final polish of documentation.
+  # - `cargo +nightly doc --all-features --no-deps --open` and re-read and final polish of documentation.
   #
   # - Update CHANGELOG.md.
   # - Update version numbers in Cargo.yml, Cargo.toml, install section of readme.
@@ -20,13 +20,14 @@ package:
   # - `cargo test` on dependent crates
   #
   # - cargo publish
-  # - `git checkout master && git merge dev --no-ff`
+  # - `git checkout release && git merge dev --no-ff`
   # - `git tag x.x.x` with version number.
   # - `git push && git push --tags`
   #
-  version       : 0.1.0-alpha.3
+  version       : 0.1.0
   name          : thespis
   edition       : '2018'
+  resolver      : '2'
   authors       : [ Naja Melan <najamelan@autistici.org> ]
   description   : The interface of the thespis actor model (contains only traits).
   license       : Unlicense
@@ -40,7 +41,7 @@ package:
   metadata:
     docs:
       rs:
-        features: [ external_doc ]
+        all-features: true
 
 
 badges:
@@ -54,18 +55,14 @@ features:
   default: [ derive ]
   derive : [ thespis_derive ]
 
-  # only used internally, don't use
-  #
-  external_doc: []
-
 
 dependencies:
 
   futures-sink   : { version: ^0.3, features: [std], default-features: false }
-  thespis_derive : { version: 0.1.0-alpha, optional: true }
+  thespis_derive : { version: ^0.1, optional: true }
 
 
 build-dependencies:
 
-  rustc_version: ^0.3
+  rustc_version: ^0.4
 

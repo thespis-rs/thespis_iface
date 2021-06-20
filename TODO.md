@@ -2,18 +2,13 @@
 
 - issues to improve:
   - make running concurrent handlers more ergonomic.
-  - WeakAddr that does not keep actor alive
-  -
 
 - Ideas from act-zero:
   - does not require boxing if the response is immediately ready in a handler. For that it uses an enum.
-  - pass address of the actor in Actor::started
-  - Actor::error called when an actor returns an error and stops the actor if returns true.
-  - WeakAddr
   - automates concurrncy of handlers that don't need mut state based on receiver, &self, &mut self, Addr<Local<Self>>.
 
 
-- thespis_remote RemoteAddr is a different type then thespis::Addr. How transparent is this for combining local and remote actors. It is a different type and boxing it won't help here since the error type on the Sink is different. We should play around with this and see if we can smoothen that out. thespis::Receiver will not work with it either. UPdate guide when we know what the final score is.
+- thespis_remote RemoteAddr is a different type then thespis::Addr. How transparent is this for combining local and remote actors. It is a different type and boxing it won't help here since the error type on the Sink is different. We should play around with this and see if we can smoothen that out. Update guide when we know what the final score is.
 
 - channel choice is currently tied to the mailbox, not to an individual address. This is inconvenient. What if an actor wants for certain events to be drop channel where as keeping the rest mpsc?
 

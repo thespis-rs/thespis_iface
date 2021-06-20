@@ -1,5 +1,4 @@
-#![ cfg_attr( nightly, feature( external_doc             ) ) ]
-#![ cfg_attr( nightly, doc    ( include = "../README.md" ) ) ]
+#![ cfg_attr( nightly, cfg_attr( nightly, doc = include_str!("../README.md") )) ]
 #![ doc = "" ] // empty doc line to handle missing doc warning when the feature is missing.
 //
 #![ doc    ( html_root_url = "https://docs.rs/thespis" ) ]
@@ -68,7 +67,7 @@ mod import
 {
 	pub(crate) use
 	{
-		std :: { sync::Arc, fmt } ,
+		std :: { sync::Arc, rc::Rc, fmt } ,
 	};
 }
 
