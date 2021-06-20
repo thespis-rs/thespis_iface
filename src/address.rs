@@ -19,9 +19,9 @@ use crate :: { *, import::* };
 //
 pub trait Address<M>: Identify
 
-where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                                  ,
-      M   : Message                                                                    ,
-      <Self as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug + 'static ,
+where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                     ,
+      M   : Message                                                       ,
+      <Self as Sink<M>>::Error: std::error::Error + Send + Sync + 'static ,
 
 {
 	/// Call an actor and receive the result of the call. This is a two-way operation. Calling with
@@ -52,10 +52,10 @@ where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                           
 
 impl<M, T> Address<M> for Box<T>
 
-	where  M: Message                                                         ,
-	       T: Address<M> + Identify                                           ,
-	       T: Sink<M> + Any + fmt::Debug + Unpin + Send                       ,
-	      <T as Sink<M>>::Error: std::error::Error + Send + Sync + fmt::Debug ,
+	where  M: Message                                            ,
+	       T: Address<M> + Identify                              ,
+	       T: Sink<M> + Any + fmt::Debug + Unpin + Send          ,
+	      <T as Sink<M>>::Error: std::error::Error + Send + Sync ,
 {
 	#[ must_use = "Futures do nothing unless polled" ]
 	//

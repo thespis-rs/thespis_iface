@@ -7,7 +7,7 @@ status = "actively-developed"
 repository = "thespis-rs/thespis_iface"
 
 [build-dependencies]
-rustc_version = "^0.3"
+rustc_version = "^0.4"
 
 [dependencies]
 [dependencies.futures-sink]
@@ -17,12 +17,11 @@ version = "^0.3"
 
 [dependencies.thespis_derive]
 optional = true
-version = "0.1.0-alpha"
+version = "^0.1"
 
 [features]
 default = ["derive"]
 derive = ["thespis_derive"]
-external_doc = []
 
 [package]
 authors = ["Naja Melan <najamelan@autistici.org>"]
@@ -36,9 +35,9 @@ license = "Unlicense"
 name = "thespis"
 readme = "README.md"
 repository = "https://github.com/thespis-rs/thespis_iface"
-version = "0.1.0-alpha.3"
+version = "0.1.0"
 
 [package.metadata]
 [package.metadata.docs]
 [package.metadata.docs.rs]
-features = ["external_doc"]
+all-features = true

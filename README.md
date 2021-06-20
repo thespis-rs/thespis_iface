@@ -1,7 +1,7 @@
 # thespis
 
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![Build Status](https://api.travis-ci.org/najamelan/thespis.svg?branch=master)](https://travis-ci.org/najamelan/thespis)
+[![Build Status](https://api.travis-ci.org/najamelan/thespis.svg?branch=release)](https://travis-ci.org/najamelan/thespis)
 [![Docs](https://docs.rs/thespis/badge.svg)](https://docs.rs/thespis)
 [![crates.io](https://img.shields.io/crates/v/thespis.svg)](https://crates.io/crates/thespis)
 
@@ -16,7 +16,7 @@ The purpose for the split between interface and implementation is 2-fold:
 1. Libraries can expose an actor based interface without having to depend on an implementation. Consumers can then choose any implementation they want and everything will remain inter-operable.
 2. Each component can be individually replaced and composed if you need a different behavior then the reference implementation.
 
-The reference implementation can be found in the `thespis_impl` crate.
+The reference implementation can be found in the [_thespis_impl_](https://docs.rs/thespis_impl) crate.
 
 Please check out the [guide level documentation](https://thespis-rs.github.io/thespis_guide/).
 
@@ -42,26 +42,26 @@ With [cargo yaml](https://gitlab.com/storedbox/cargo-yaml):
 ```yaml
 dependencies:
 
-   thespis: ^0.1-alpha
+   thespis: ^0.1
 ```
 
 In Cargo.toml:
 ```toml
 [dependencies]
 
-   thespis = "0.1-alpha"
+   thespis = "0.1"
 ```
 
 ### Upgrade
 
-Please check out the [changelog](https://github.com/thespis-rs/thespis/blob/master/CHANGELOG.md) when upgrading.
+Please check out the [changelog](https://github.com/thespis-rs/thespis_iface/blob/release/CHANGELOG.md) when upgrading.
 
 
 ### Dependencies
 
-This crate has few dependencies. Cargo will automatically handle it's dependencies for you. Check `Cargo.yml` for the list of dependencies.
+This crate has few dependencies. Cargo will automatically handle it's dependencies for you. Check [`Cargo.yml`](https://github.com/thespis-rs/thespis_iface/blob/release/Cargo.yml) for the list of dependencies.
 
-There is one optional feature, `derive`, enabled by default which adds proc macros for deriving the `Message` trait as well as removing the boilerplate for implementing `Handler`.
+There is one optional feature, `derive`, enabled by default which adds proc macros for deriving the `Message` trait as well as removing some boilerplate when implementing `Handler`.
 
 
 ### Security
@@ -71,7 +71,7 @@ This crate does not use unsafe, but it's dependencies do.
 
 ## Usage
 
-Please refer to the _thespis_impl_ crate to see examples of usage.
+Please refer to the [_thespis_impl_](https://github.com/thespis-rs/thespis_impl/blob/release/examples) crate to see examples of usage.
 
 ## API
 
@@ -80,12 +80,12 @@ API documentation can be found on [docs.rs](https://docs.rs/thespis).
 
 ## Contributing
 
-Please check out the [contribution guidelines](https://github.com/thespis-rs/thespis/blob/master/CONTRIBUTING.md).
+Please check out the [contribution guidelines](https://github.com/thespis-rs/thespis/blob/release/CONTRIBUTING.md).
 
 
 ### Testing
 
-As this crate only provides traits, there isn't any tests. You can check the _thespis_impl_ crate for the tests.
+As this crate only provides traits, there aren't any tests. You can check the [_thespis_impl_](https://github.com/thespis-rs/thespis_impl/blob/release/tests) crate for the tests.
 
 ### Code of conduct
 
