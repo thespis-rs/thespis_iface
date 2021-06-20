@@ -1,9 +1,6 @@
 # thespis - CHANGELOG
 
 
-# thespis - CHANGELOG
-
-
 ## [Unreleased]
 
 [Unreleased]: https://github.com/najamelan/async_executors/compare/release...dev
@@ -13,6 +10,9 @@
 
 [0.1.0]: https://github.com/najamelan/async_executors/compare/0.1.0-alpha.3...0.1.0
 
+### Removed
+
+	- the `AsAddress` trait has been incorporated in `Address`.
 
 ## [0.1.0-alpha.3] - 2020-02-18
 

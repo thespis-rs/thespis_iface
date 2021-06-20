@@ -27,6 +27,7 @@ package:
   version       : 0.1.0
   name          : thespis
   edition       : '2018'
+  resolver      : '2'
   authors       : [ Naja Melan <najamelan@autistici.org> ]
   description   : The interface of the thespis actor model (contains only traits).
   license       : Unlicense
