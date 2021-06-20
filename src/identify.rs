@@ -2,6 +2,13 @@ use crate :: { import::* };
 
 
 /// Interface for uniquely identifying actors. Mainly useful for logging and debugging.
+///
+/// This is separate from Address because for example an Address implementer might want
+/// to show id/name in a Debug impl, but Address<M> will only be available for specific
+/// M for which the actor implements Handler. That causes issues. This trait allows for
+/// identity information to available on those types where no M is available.
+///
+/// Also, Mailbox implementations can implement Identify but not Address.
 //
 pub trait Identify
 {
