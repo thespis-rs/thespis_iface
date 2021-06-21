@@ -19,7 +19,7 @@ use crate :: { *, import::* };
 //
 pub trait Address<M>: Identify
 
-where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                     ,
+where Self: Sink<M> + fmt::Debug + Unpin + Send                           ,
       M   : Message                                                       ,
       <Self as Sink<M>>::Error: std::error::Error + Send + Sync + 'static ,
 
@@ -52,10 +52,34 @@ where Self: Sink<M> + Any + fmt::Debug + Unpin + Send                     ,
 
 impl<M, T> Address<M> for Box<T>
 
-	where  M: Message                                            ,
-	       T: Address<M> + Identify                              ,
-	       T: Sink<M> + Any + fmt::Debug + Unpin + Send          ,
-	      <T as Sink<M>>::Error: std::error::Error + Send + Sync ,
+	where  M: Message                                                      ,
+	       T: Address<M> + Identify + ?Sized                               ,
+	       T: Sink<M> + fmt::Debug + Unpin + Send                          ,
+	      <T as Sink<M>>::Error: std::error::Error + Send + Sync + 'static ,
+{
+	#[ must_use = "Futures do nothing unless polled" ]
+	//
+	fn call( &mut self, msg: M ) -> Return<'_, Result< <M as Message>::Return, <T as Sink<M> >::Error >>
+	{
+		(**self).call( msg )
+	}
+
+	/// Get a clone of this address as a `Box<Address<M>>`.
+	//
+	fn clone_box( &self ) -> BoxAddress<M, <T as Sink<M> >::Error>
+	{
+		(**self).clone_box()
+	}
+}
+
+
+
+impl<M, T> Address<M> for &mut T
+
+	where  M: Message                                                      ,
+	       T: Address<M> + Identify + ?Sized                               ,
+	       T: Sink<M> + fmt::Debug + Unpin + Send                          ,
+	      <T as Sink<M>>::Error: std::error::Error + Send + Sync + 'static ,
 {
 	#[ must_use = "Futures do nothing unless polled" ]
 	//
