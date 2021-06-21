@@ -26,7 +26,7 @@ pub trait Identify
 
 
 
-impl<T> Identify for Box<T> where T: Identify
+impl<T: ?Sized> Identify for Box<T> where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 
@@ -35,7 +35,7 @@ impl<T> Identify for Box<T> where T: Identify
 
 
 
-impl<T> Identify for Arc<T> where T: Identify
+impl<T: ?Sized> Identify for Arc<T> where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 
@@ -44,7 +44,7 @@ impl<T> Identify for Arc<T> where T: Identify
 
 
 
-impl<T> Identify for Rc<T> where T: Identify
+impl<T: ?Sized> Identify for Rc<T> where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 
@@ -53,7 +53,7 @@ impl<T> Identify for Rc<T> where T: Identify
 
 
 
-impl<T> Identify for &T where T: Identify
+impl<T: ?Sized> Identify for &T where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 
@@ -62,7 +62,7 @@ impl<T> Identify for &T where T: Identify
 
 
 
-impl<T> Identify for &mut T where T: Identify
+impl<T: ?Sized> Identify for &mut T where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 

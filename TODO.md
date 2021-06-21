@@ -10,8 +10,6 @@
 
 - thespis_remote RemoteAddr is a different type then thespis::Addr. How transparent is this for combining local and remote actors. It is a different type and boxing it won't help here since the error type on the Sink is different. We should play around with this and see if we can smoothen that out. Update guide when we know what the final score is.
 
-- channel choice is currently tied to the mailbox, not to an individual address. This is inconvenient. What if an actor wants for certain events to be drop channel where as keeping the rest mpsc?
-
 
 - !Send Messages.
 
