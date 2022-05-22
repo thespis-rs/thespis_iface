@@ -47,7 +47,7 @@ pub use futures_sink::{ Sink };
 #[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor, async_fn, async_fn_local };
 
 
-use std::{ pin::Pin, future::Future, any::Any };
+use std::{ pin::Pin, future::Future };
 
 /// A boxed future that is `Send`, shorthand for async trait method return types.
 //
