@@ -10,7 +10,7 @@
 ///   the trait more or less useless.
 ///   Also it is more a requirement of the implementation than of the interface, as
 ///   some implementations might chose not to recover from panics. In that case there is no
-///   risk. `thespis_impl` in any case wraps your handlers in [`AssertUnwindSafe`] in order to
+///   risk. [_thespis_impl_](https://docs.rs/thespis_impl) in any case wraps your handlers in [`AssertUnwindSafe`] in order to
 ///   recover and allow actor supervision. So if you use that, be sure to respect the
 ///   directions given above.
 ///

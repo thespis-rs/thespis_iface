@@ -1,11 +1,4 @@
 # Auto-generated from "Cargo.yml"
-[badges]
-[badges.maintenance]
-status = "actively-developed"
-
-[badges.travis-ci]
-repository = "thespis-rs/thespis_iface"
-
 [build-dependencies]
 rustc_version = "^0.4"
 
@@ -28,7 +21,7 @@ authors = ["Naja Melan <najamelan@autistici.org>"]
 categories = ["asynchronous", "concurrency"]
 description = "The interface of the thespis actor model (contains only traits)."
 documentation = "https://docs.rs/thespis"
-edition = "2018"
+edition = "2021"
 homepage = "https://github.com/thespis-rs/thespis_iface"
 keywords = ["async", "futures", "actor", "thespis"]
 license = "Unlicense"
@@ -36,7 +29,7 @@ name = "thespis"
 readme = "README.md"
 repository = "https://github.com/thespis-rs/thespis_iface"
 resolver = "2"
-version = "0.1.0"
+version = "0.1.1"
 
 [package.metadata]
 [package.metadata.docs]

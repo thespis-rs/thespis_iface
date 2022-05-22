@@ -1,6 +1,6 @@
-#![ cfg_attr( nightly, cfg_attr( nightly, doc = include_str!("../README.md") )) ]
-#![ doc = "" ] // empty doc line to handle missing doc warning when the feature is missing.
-//
+#![ cfg_attr( nightly, feature(doc_cfg) ) ]
+#![ doc = include_str!("../README.md") ]
+
 #![ doc    ( html_root_url = "https://docs.rs/thespis" ) ]
 #![ deny   ( missing_docs                              ) ]
 #![ forbid ( unsafe_code                               ) ]
@@ -8,16 +8,18 @@
 
 #![ warn
 (
+	anonymous_parameters          ,
+	missing_copy_implementations  ,
 	missing_debug_implementations ,
 	missing_docs                  ,
 	nonstandard_style             ,
 	rust_2018_idioms              ,
+	single_use_lifetimes          ,
 	trivial_casts                 ,
 	trivial_numeric_casts         ,
+	unreachable_pub               ,
 	unused_extern_crates          ,
 	unused_qualifications         ,
-	single_use_lifetimes          ,
-	unreachable_pub               ,
 	variant_size_differences      ,
 )]
 
@@ -40,6 +42,8 @@ pub use
 
 // address.send requires futures::sink::SinkExt.
 // let's publicly re-export that.
+/// Re-export from the futures library.
+///
 //
 pub use futures_sink::{ Sink };
 
@@ -47,7 +51,7 @@ pub use futures_sink::{ Sink };
 #[ cfg( feature = "derive" ) ] pub use thespis_derive::{ Actor, async_fn, async_fn_local };
 
 
-use std::{ pin::Pin, future::Future, any::Any };
+use std::{ pin::Pin, future::Future };
 
 /// A boxed future that is `Send`, shorthand for async trait method return types.
 //

@@ -8,7 +8,7 @@
 
 > Interface of the thespis actor model.
 
-The interface of the thespis actor model (contains only traits). This defines the expected behavior for Addresses that can send to Actors, as well as the `Handler` trait and the `Message` trait.
+The interface of the thespis actor model (contains only traits). This defines the expected behavior for Addresses that can send to Actors, as well as the [`Handler`] trait and the [`Message`] trait.
 
 There used to be a `Mailbox` trait, but it turns out that the mailbox is not depended on by any of the other components, so it's iplementation can be freely changed without requiring an interface.
 
@@ -18,7 +18,7 @@ The purpose for the split between interface and implementation is 2-fold:
 
 The reference implementation can be found in the [_thespis_impl_](https://docs.rs/thespis_impl) crate.
 
-Please check out the [guide level documentation](https://thespis-rs.github.io/thespis_guide/).
+To get started with _thespis_, please check out the [guide level documentation](https://thespis-rs.github.io/thespis_guide/).
 
 ## Table of Contents
 

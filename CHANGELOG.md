@@ -6,6 +6,21 @@
 [Unreleased]: https://github.com/najamelan/async_executors/compare/release...dev
 
 
+## [0.1.1] - 2022-05-22
+
+[0.1.1]: https://github.com/najamelan/async_executors/compare/0.1.0...0.1.1
+
+### Added
+
+	- allow `Indentity` for `?Sized` types.
+	- an auto impl for `Address` on `&mut T`.
+	- a funding badge.
+
+### Updated
+	- switch to rust edition 2021.
+	- rustdoc configuration.
+
+
 ## [0.1.0] - 2021-06-20
 
 [0.1.0]: https://github.com/najamelan/async_executors/compare/0.1.0-alpha.3...0.1.0
