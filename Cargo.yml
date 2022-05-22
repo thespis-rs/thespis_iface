@@ -24,9 +24,9 @@ package:
   # - `git tag x.x.x` with version number.
   # - `git push && git push --tags`
   #
-  version       : 0.1.0
+  version       : 0.1.1
   name          : thespis
-  edition       : '2018'
+  edition       : '2021'
   resolver      : '2'
   authors       : [ Naja Melan <najamelan@autistici.org> ]
   description   : The interface of the thespis actor model (contains only traits).
@@ -42,12 +42,6 @@ package:
     docs:
       rs:
         all-features: true
-
-
-badges:
-
-  maintenance : { status     : actively-developed       }
-  travis-ci   : { repository : thespis-rs/thespis_iface }
 
 
 features:
