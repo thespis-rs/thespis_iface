@@ -3,7 +3,7 @@ use crate :: { *, import::* };
 
 /// Behavior representing the capability of delivering a message to an actor's mailbox.
 ///
-/// The send method comes from Sink:
+/// The send method comes from [Sink]:
 ///
 /// Send a message without wanting a return from the actor. This is a one-way operation.
 /// This still returns a future because the mailbox might be async, so delivering the
