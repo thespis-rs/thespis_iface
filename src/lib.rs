@@ -42,6 +42,8 @@ pub use
 
 // address.send requires futures::sink::SinkExt.
 // let's publicly re-export that.
+/// Re-export from the futures library.
+///
 //
 pub use futures_sink::{ Sink };
 

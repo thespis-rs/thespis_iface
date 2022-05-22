@@ -5,10 +5,8 @@ use crate :: { import::* };
 ///
 /// This is separate from [`Address`] because an [`Address`] implementer might want
 /// to show id/name in a Debug impl, but Address<M> will only be available for specific
-/// M for which the actor implements Handler. That causes issues. This trait allows for
-/// identity information to available in places where no M is available.
-///
-/// Also, mailbox implementations can implement `Identify` but not [`Address`].
+/// `M` for which the actor implements Handler. `M` is the generic message type. That causes issues.
+/// This trait allows for identity information to available in places where no M is available.
 ///
 /// [`Address`]: crate::Address
 //
