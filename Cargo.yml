@@ -9,7 +9,7 @@ package:
   # - Update CHANGELOG.md.
   # - Update version numbers in Cargo.yml, Cargo.toml, install section of readme.
   #
-  # - `touch **.rs && cargo clippy --tests --examples --benches --all-features`
+  # - `cargo clippy --tests --examples --benches --all-features`
   # - `cargo update`
   # - `cargo udeps --all-targets --all-features`
   # - `cargo audit`
@@ -24,7 +24,7 @@ package:
   # - `git tag x.x.x` with version number.
   # - `git push && git push --tags`
   #
-  version       : 0.1.1
+  version       : 0.2.0
   name          : thespis
   edition       : '2021'
   resolver      : '2'

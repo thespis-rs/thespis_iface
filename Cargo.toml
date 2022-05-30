@@ -29,7 +29,7 @@ name = "thespis"
 readme = "README.md"
 repository = "https://github.com/thespis-rs/thespis_iface"
 resolver = "2"
-version = "0.1.1"
+version = "0.2.0"
 
 [package.metadata]
 [package.metadata.docs]
