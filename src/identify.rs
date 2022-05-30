@@ -19,7 +19,7 @@ pub trait Identify
 
 	/// A human readable name of the actor.
 	//
-	fn name( &self ) -> Option< Arc<str> >;
+	fn name( &self ) -> Arc<str>;
 }
 
 
@@ -28,7 +28,7 @@ impl<T: ?Sized> Identify for Box<T> where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 
-	fn name( &self ) -> Option< Arc<str> > { (**self).name() }
+	fn name( &self ) -> Arc<str> { (**self).name() }
 }
 
 
@@ -37,7 +37,7 @@ impl<T: ?Sized> Identify for Arc<T> where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 
-	fn name( &self ) -> Option< Arc<str> > { (**self).name() }
+	fn name( &self ) -> Arc<str> { (**self).name() }
 }
 
 
@@ -46,7 +46,7 @@ impl<T: ?Sized> Identify for Rc<T> where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 
-	fn name( &self ) -> Option< Arc<str> > { (**self).name() }
+	fn name( &self ) -> Arc<str> { (**self).name() }
 }
 
 
@@ -55,7 +55,7 @@ impl<T: ?Sized> Identify for &T where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 
-	fn name( &self ) -> Option< Arc<str> > { (**self).name() }
+	fn name( &self ) -> Arc<str> { (**self).name() }
 }
 
 
@@ -64,5 +64,5 @@ impl<T: ?Sized> Identify for &mut T where T: Identify
 {
 	fn id( &self ) -> usize { (**self).id() }
 
-	fn name( &self ) -> Option< Arc<str> > { (**self).name() }
+	fn name( &self ) -> Arc<str> { (**self).name() }
 }
