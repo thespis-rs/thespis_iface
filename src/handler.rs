@@ -3,7 +3,7 @@ use crate :: { * };
 /// Trait indicating that the implementor can receive messages of a certain type.
 /// An actor can implement Handler for as many types as desired.
 //
-pub trait Handler< M: Message > where Self: Actor
+pub trait Handler< M: Message >
 {
 	/// Define how your actor handles this message type. If your actor is !Send,
 	/// you should implement `handle_local` and give `handle` an "unreachable!()" implementation.
